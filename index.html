@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- BULLETPROOF FAVICON SETUP -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    
+    <title>ReByte | Quality Laptops & PCs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body, html {
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background-color: #020205;
+            color: #ffffff;
+            overflow-x: hidden;
+            transition: filter 0.5s ease;
+        }
+
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            pointer-events: none;
+        }
+
+        .container * {
+            pointer-events: auto;
+        }
+
+        /* --- DYNAMIC ISLAND (INSTANT MINIMIZE & STOP-TO-EXPAND) --- */
+        .island-wrapper {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        header.dynamic-island {
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            padding: 0.9rem 2rem;
+            background: rgba(10, 10, 20, 0.5);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 100px;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.4);
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        padding 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        background 0.4s ease,
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        header.dynamic-island.scrolling {
+            width: 160px;
+            padding: 0.5rem 1rem;
+            background: rgba(5, 5, 12, 0.92);
+            border-color: rgba(255, 0, 128, 0.7);
+            box-shadow: 0 0 30px rgba(255, 0, 128, 0.5), inset 0 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            user-select: none;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #ffffff;
+        }
+
+        .logo svg {
+            filter: drop-shadow(0 0 10px #00f0ff);
+        }
+
+        .logo:hover {
+            transform: scale(1.08) rotate(-2deg);
+        }
+
+        .logo:active {
+            transform: scale(0.92);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        header.dynamic-island.scrolling nav {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.6);
+            display: none;
+        }
+
+        nav a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: #00f0ff;
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            margin: 7rem 0 6rem;
+            text-align: center;
+        }
+
+        .hero-card {
+            background: rgba(12, 12, 22, 0.45);
+            backdrop-filter: blur(45px);
+            -webkit-backdrop-filter: blur(45px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 5rem 2.5rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 240, 255, 0.05);
+        }
+
+        h1 {
+            font-size: 4.2rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        p.subtitle {
+            font-size: 1.3rem;
+            color: #a1a1aa;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.5;
+        }
+
+        /* --- NEON FLUID BUTTONS --- */
+        .btn-fluid {
+            position: relative;
+            display: inline-block;
+            padding: 1.1rem 2.8rem;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #000000;
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+        }
+
+        .btn-fluid:hover {
+            transform: translateY(-6px) scale(1.06);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.9), 0 10px 30px rgba(255, 0, 128, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
+        }
+
+        .btn-fluid:active {
+            transform: translateY(-1px) scale(0.95);
+        }
+
+        /* --- CATEGORIES & INVENTORY --- */
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, #ffffff 0%, #ff0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .category-card {
+            background: rgba(18, 18, 30, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 36px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(35px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.25);
+        }
+
+        .category-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .category-card p {
+            color: #a1a1aa;
+            margin-bottom: 2.2rem;
+            font-size: 1rem;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 0.5rem 1.4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            font-weight: 600;
+        }
+
+        /* --- TRADE-IN FORM --- */
+        .sell-section {
+            background: rgba(18, 18, 30, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 4rem 2.5rem;
+            backdrop-filter: blur(45px);
+            margin-bottom: 6rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #00f0ff;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+            transform: scale(1.01);
+        }
+
+        select option {
+            background: #101018;
+            color: #ffffff;
+        }
+
+        textarea {
+            grid-column: span 2;
+            height: 130px;
+            resize: none;
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: #52525b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .inventory-grid, .form-grid { grid-template-columns: 1fr; }
+            textarea, .submit-btn { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="webgl-canvas" title="Click background to release gravity shockwaves!"></canvas>
+
+    <div class="container">
+        <!-- DYNAMIC ISLAND HEADER -->
+        <div class="island-wrapper">
+            <header class="dynamic-island" id="dynamic-island">
+                <div class="logo" id="secret-logo-btn" title="Triple click for Turbo Mode!">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="13" stroke="#00f0ff" stroke-width="2.5"/>
+                        <path d="M16 8V16L21 21" stroke="#ff0080" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>ReByte</span>
+                </div>
+                <nav>
+                    <a href="#inventory">Browse Stock</a>
+                    <a href="#sell">Sell Your Tech</a>
+                </nav>
+            </header>
+        </div>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-card">
+                <h1>Cheap prices with good laptops.</h1>
+                <p class="subtitle">Fair deals on quality pre-owned MacBooks, iMacs, and PCs. Buy or trade-in with total ease.</p>
+                <a href="#sell" class="btn-fluid">Get a Cash Quote</a>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section id="inventory">
+            <h2 class="section-title">Stock Categories</h2>
+
+            <div class="inventory-grid">
+                <div class="category-card">
+                    <h3>MacBook / iMac</h3>
+                    <p>Apple laptops and desktop all-in-ones at fair prices.</p>
+                    <span class="stock-badge">Currently Out of Stock — New Arrivals Soon</span>
+                </div>
+
+                <div class="category-card">
+                    <h3>Laptop / PC</h3>
+                    <p>Windows laptops and desktop computer setups.</p>
+                    <span class="stock-badge">Currently Out of Stock — New Arrivals Soon</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRADE-IN FORM WITH FORMSPREE ENDPOINT -->
+        <section class="sell-section" id="sell">
+            <h2 class="section-title">Trade-In Your Device</h2>
+            <p style="text-align: center; color: #a1a1aa; margin-bottom: 2rem;">Fill out your device details below to send us a direct quote request.</p>
+
+            <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
+                
+                <select name="device_type" required>
+                    <option value="" disabled selected>Select Device Type</option>
+                    <option value="MacBook / iPad">MacBook / iPad</option>
+                    <option value="iMac / All-In-One Desktop">iMac / All-In-One Desktop</option>
+                    <option value="Windows Laptop / Desktop PC">Windows Laptop / Desktop PC</option>
+                </select>
+                
+                <input type="text" name="model" placeholder="Model & Year (e.g., 2019 iMac 21.5-inch)" required>
+                <textarea name="details" placeholder="Describe the machine's condition and specs (RAM, storage, minor flaws...)" required></textarea>
+                
+                <button type="submit" class="btn-fluid submit-btn">Send Trade-In Request</button>
+            </form>
+        </section>
+
+        <footer>
+            &copy; 2026 ReByte. Clean, simple, affordable tech.
+        </footer>
+    </div>
+
+    <script>
+        // --- 1. DYNAMIC ISLAND (INSTANT MINIMIZE & STOP-TO-EXPAND) ---
+        const island = document.getElementById('dynamic-island');
+        let stopScrollTimer = null;
+
+        window.addEventListener('scroll', () => {
+            island.classList.add('scrolling');
+
+            if (stopScrollTimer !== null) {
+                clearTimeout(stopScrollTimer);
+            }
+
+            stopScrollTimer = setTimeout(() => {
+                island.classList.remove('scrolling');
+            }, 150);
+        }, { passive: true });
+
+        // --- 2. EASTER EGGS SYSTEM ---
+        let logoClicks = 0;
+        let turboMode = false;
+        const logoBtn = document.getElementById('secret-logo-btn');
+        logoBtn.addEventListener('click', () => {
+            logoClicks++;
+            if (logoClicks === 3) {
+                turboMode = !turboMode;
+                alert(turboMode ? "⚡ EASTER EGG UNLOCKED: Quantum Hyper-Drive Engaged!" : "⚡ Hyper-Drive Disengaged.");
+                logoClicks = 0;
+            }
+            setTimeout(() => { logoClicks = 0; }, 1200);
+        });
+
+        let bwMode = false;
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'b' || e.key === 'B') {
+                bwMode = !bwMode;
+                document.body.style.filter = bwMode ? 'grayscale(100%) contrast(130%)' : 'none';
+            }
+        });
+
+        let keyBuffer = '';
+        let matrixMode = false;
+        window.addEventListener('keydown', (e) => {
+            keyBuffer += e.key;
+            if (keyBuffer.length > 10) keyBuffer = keyBuffer.substring(keyBuffer.length - 10);
+            
+            if (keyBuffer.includes('1337')) {
+                matrixMode = !matrixMode;
+                if (hyperCubeMat) hyperCubeMat.color.setHex(matrixMode ? 0x00ff00 : 0x00f0ff);
+                if (innerCoreMat) innerCoreMat.color.setHex(matrixMode ? 0x00ff66 : 0xff0080);
+                alert(matrixMode ? "🟢 EASTER EGG UNLOCKED: Matrix Hyper-Grid Activated!" : "⚪ Standard Quantum Matrix Restored.");
+                keyBuffer = '';
+            }
+        });
+
+        // --- 3. THREE.js QUANTUM HYPER-CUBE ENGINE ---
+        const canvas = document.getElementById('webgl-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 10);
+
+        // Neon Lights
+        const cyanLight = new THREE.PointLight(0x00f0ff, 20, 30);
+        scene.add(cyanLight);
+
+        const magentaLight = new THREE.PointLight(0xff0080, 20, 30);
+        scene.add(magentaLight);
+
+        // Master 3D Group
+        const quantumGroup = new THREE.Group();
+        scene.add(quantumGroup);
+
+        // Outer Wireframe Hyper-Cube
+        const hyperCubeGeo = new THREE.BoxGeometry(2.6, 2.6, 2.6);
+        const hyperCubeMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+        const hyperCube = new THREE.Mesh(hyperCubeGeo, hyperCubeMat);
+        quantumGroup.add(hyperCube);
+
+        // Inner Glowing Glass Core
+        const innerCoreGeo = new THREE.IcosahedronGeometry(1.2, 1);
+        const innerCoreMat = new THREE.MeshPhysicalMaterial({
+            color: 0xff0080,
+            transmission: 0.85,
+            opacity: 1.0,
+            transparent: true,
+            roughness: 0.15,
+            metalness: 0.8,
+            clearcoat: 1.0,
+            wireframe: true
+        });
+        const innerCore = new THREE.Mesh(innerCoreGeo, innerCoreMat);
+        quantumGroup.add(innerCore);
+
+        // Triple Counter-Rotating Rings
+        const rings = [];
+        const ringColors = [0x00f0ff, 0xff0080, 0xffffff];
+        for (let i = 0; i < 3; i++) {
+            const ringGeo = new THREE.TorusGeometry(3.2 + i * 0.4, 0.025, 16, 100);
+            const ringMat = new THREE.MeshBasicMaterial({ color: ringColors[i] });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = (Math.PI / 4) * (i + 1);
+            ring.rotation.y = (Math.PI / 3) * i;
+            quantumGroup.add(ring);
+            rings.push(ring);
+        }
+
+        // Quantum Particle Grid
+        const particleCount = 1200;
+        const particleGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 25;
+            positions[i + 1] = (Math.random() - 0.5) * 25;
+            positions[i + 2] = (Math.random() - 0.5) * 25;
+        }
+
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMat = new THREE.PointsMaterial({
+            size: 0.045,
+            color: 0x00f0ff,
+            transparent: true,
+            opacity: 0.65
+        });
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        // Interaction Physics
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        let shockwave = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Direct Canvas Click Handler for Guaranteed Shockwave
+        canvas.addEventListener('click', () => {
+            shockwave = 1.0;
+        });
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const speedMultiplier = turboMode ? 3.5 : 1.0;
+            const elapsed = clock.getElapsedTime() * speedMultiplier;
+
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            shockwave = Math.max(0, shockwave - 0.03);
+
+            // Hyper-Cube Motion
+            hyperCube.rotation.x = elapsed * 0.4 + targetY * 0.5;
+            hyperCube.rotation.y = elapsed * 0.5 + targetX * 0.5;
+
+            innerCore.rotation.x = -elapsed * 0.8;
+            innerCore.rotation.y = -elapsed * 0.9;
+
+            // Counter-rotating rings with shockwave expansion
+            rings.forEach((ring, index) => {
+                const dir = index % 2 === 0 ? 1 : -1;
+                ring.rotation.z = elapsed * (0.4 + index * 0.1) * dir + shockwave * 2.0;
+                ring.rotation.x = elapsed * (0.3 + index * 0.15) * dir;
+            });
+
+            particles.rotation.y = elapsed * 0.02;
+
+            // Orbiting Neon Lights
+            cyanLight.position.x = Math.sin(elapsed * 1.5) * 6;
+            cyanLight.position.y = Math.cos(elapsed * 1.0) * 5;
+
+            magentaLight.position.x = -Math.sin(elapsed * 1.5) * 6;
+            magentaLight.position.y = -Math.cos(elapsed * 1.0) * 5;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
