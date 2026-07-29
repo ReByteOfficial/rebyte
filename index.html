@@ -51,7 +51,7 @@
             pointer-events: auto;
         }
 
-        /* --- DYNAMIC ISLAND (ULTRA-TRANSPARENT GLASS) --- */
+        /* --- DYNAMIC ISLAND HEADER --- */
         .island-wrapper {
             position: fixed;
             top: 1.5rem;
@@ -164,10 +164,13 @@
             width: 100%;
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            margin: 7rem 0 5rem;
-            text-align: center;
+        /* --- MAIN PAGE HERO CARDS --- */
+        .hero-container {
+            margin-top: 7rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-bottom: 6rem;
         }
 
         .hero-card {
@@ -176,13 +179,22 @@
             -webkit-backdrop-filter: blur(60px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 44px;
-            padding: 5.5rem 2.5rem;
+            padding: 4.5rem 2.5rem;
+            text-align: center;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8), 
                         inset 0 0 50px rgba(255, 255, 255, 0.05),
                         0 0 40px rgba(0, 240, 255, 0.1);
             animation: floatHero 8s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .hero-card.pink-accent {
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 50px rgba(255, 255, 255, 0.05),
+                        0 0 40px rgba(255, 0, 128, 0.15);
+            animation-delay: -4s;
         }
 
         .hero-card::before {
@@ -197,10 +209,14 @@
             animation: rotateGlow 15s linear infinite;
         }
 
+        .hero-card.pink-accent::before {
+            background: radial-gradient(circle, rgba(255,0,128,0.08) 0%, transparent 60%);
+        }
+
         h1 {
-            font-size: 4.4rem;
+            font-size: 3.8rem;
             font-weight: 900;
-            line-height: 1.05;
+            line-height: 1.1;
             letter-spacing: -2px;
             margin-bottom: 1.2rem;
             background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
@@ -209,11 +225,18 @@
             text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
         }
 
+        h1.pink-text {
+            background: linear-gradient(180deg, #ffffff 0%, #ff0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(255, 0, 128, 0.3);
+        }
+
         p.subtitle {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             color: #a1a1aa;
             max-width: 620px;
-            margin: 0 auto 2.8rem;
+            margin: 0 auto 2.5rem;
             line-height: 1.5;
         }
 
@@ -235,17 +258,30 @@
             overflow: hidden;
         }
 
+        .btn-fluid.pink-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
+            box-shadow: 0 0 35px rgba(255, 0, 128, 0.6);
+        }
+
         .btn-fluid:hover {
             transform: translateY(-6px) scale(1.06);
             box-shadow: 0 0 60px rgba(0, 240, 255, 0.9), 0 12px 35px rgba(255, 0, 128, 0.6);
-            background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
+        }
+
+        .btn-fluid.pink-btn:hover {
+            box-shadow: 0 0 60px rgba(255, 0, 128, 0.9), 0 12px 35px rgba(0, 240, 255, 0.6);
         }
 
         .btn-fluid:active {
             transform: translateY(-1px) scale(0.96);
         }
 
-        /* --- SECTION HEADERS & GLASS CATEGORIES --- */
+        /* --- DEDICATED SECTIONS --- */
+        .page-section {
+            padding-top: 5rem;
+            margin-bottom: 6rem;
+        }
+
         .section-header {
             text-align: center;
             margin-bottom: 3rem;
@@ -273,11 +309,7 @@
             margin-top: 0.5rem;
         }
 
-        /* --- DEDICATED IN STOCK & OUT OF STOCK SECTIONS --- */
-        .stock-group {
-            margin-bottom: 6rem;
-        }
-
+        /* --- PRODUCT STOCK GRID --- */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -322,16 +354,13 @@
             transform: translate(30%, 30%);
         }
 
-        .glass-card.out-of-stock:hover {
-            border-color: rgba(255, 0, 128, 0.5);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(255, 0, 128, 0.25);
-        }
-
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .status-pill {
@@ -340,7 +369,7 @@
             gap: 6px;
             padding: 0.4rem 1rem;
             border-radius: 100px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -362,11 +391,10 @@
             animation: pulseDot 1.5s infinite;
         }
 
-        .status-pill.out-stock {
-            background: rgba(255, 0, 128, 0.1);
-            border: 1px solid rgba(255, 0, 128, 0.4);
-            color: #ff0080;
-            box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
+        .status-pill.au-stock {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
         }
 
         .card-title {
@@ -399,6 +427,16 @@
             color: #e4e4e7;
         }
 
+        .shipping-info {
+            font-size: 0.85rem;
+            color: #00f0ff;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
         .price-row {
             display: flex;
             align-items: center;
@@ -413,7 +451,7 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        /* --- TRADE-IN FORM --- */
+        /* --- DEDICATED TRADE-IN / ENQUIRE SECTION --- */
         .sell-section {
             background: rgba(255, 255, 255, 0.025);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -421,7 +459,6 @@
             padding: 4.5rem 2.5rem;
             backdrop-filter: blur(50px) saturate(180%);
             -webkit-backdrop-filter: blur(50px) saturate(180%);
-            margin-bottom: 6rem;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
         }
 
@@ -499,7 +536,7 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
+            h1 { font-size: 2.8rem; }
             .form-grid { grid-template-columns: 1fr; }
             textarea, .submit-btn { grid-column: span 1; }
         }
@@ -521,35 +558,43 @@
                     <span>ReByte</span>
                 </div>
                 <nav>
-                    <a href="#in-stock">Available Stock</a>
-                    <a href="#out-of-stock">Restocking</a>
-                    <a href="#sell">Trade-In</a>
+                    <a href="#stock-section">Stock</a>
+                    <a href="#trade-section">Trade-In & Enquire</a>
                 </nav>
             </header>
         </div>
 
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <div class="hero-card">
+        <!-- MAIN PAGE HERO NAVIGATION HUB -->
+        <div class="hero-container">
+            <!-- HERO 1: EXPLORE STOCK -->
+            <section class="hero-card">
                 <h1>Cheap prices with good laptops.</h1>
-                <p class="subtitle">Fair deals on quality pre-owned MacBooks, iMacs, and PCs. Fully refurbished, stress-tested, and ready for work.</p>
-                <a href="#sell" class="btn-fluid">Get a Cash Quote</a>
-            </div>
-        </section>
+                <p class="subtitle">Fair deals on quality pre-owned MacBooks and PCs. Fully refurbished, stress-tested, and ready for work.</p>
+                <a href="#stock-section" class="btn-fluid">Explore Stock</a>
+            </section>
 
-        <!-- DEDICATED IN-STOCK SECTION -->
-        <section class="stock-group" id="in-stock">
+            <!-- HERO 2: TRADE-IN -->
+            <section class="hero-card pink-accent">
+                <h1 class="pink-text">Trade in your old tech for cash fast.</h1>
+                <p class="subtitle">Got a laptop or iPad lying around? Upgrade or turn your unused hardware into instant money today.</p>
+                <a href="#trade-section" class="btn-fluid pink-btn">Trade-In & Enquire</a>
+            </section>
+        </div>
+
+        <!-- DEDICATED COMPUTERS SECTION -->
+        <section class="page-section" id="stock-section">
             <div class="section-header">
-                <h2 class="section-title">Ready to Buy (In Stock)</h2>
-                <p class="section-desc">Fully tested and ready for immediate pick up or dispatch.</p>
+                <h2 class="section-title">Available Inventory</h2>
+                <p class="section-desc">Tested refurbished computers ready for local pick up or delivery.</p>
             </div>
 
             <div class="products-grid">
-                <!-- Product Card 1 -->
+                <!-- Product Card 1: MacBook Pro -->
                 <div class="glass-card">
                     <div>
                         <div class="card-header">
                             <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                            <span class="status-pill au-stock">🇦🇺 Australia Stock</span>
                         </div>
                         <h3 class="card-title">MacBook Pro 13"</h3>
                         <p class="card-desc">Smooth performance for coding, studying, and everyday tasks. Refurbished to pristine working condition.</p>
@@ -559,18 +604,22 @@
                             <span class="spec-tag">256GB SSD</span>
                             <span class="spec-tag">Retina Display</span>
                         </div>
+                        <div class="shipping-info">
+                            🚀 Delivery: $59.99 AUD (Australia-Wide)
+                        </div>
                     </div>
                     <div class="price-row">
                         <span class="price">$380 AUD</span>
-                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                        <a href="#trade-section" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
                     </div>
                 </div>
 
-                <!-- Product Card 2 -->
+                <!-- Product Card 2: Dell Latitude -->
                 <div class="glass-card">
                     <div>
                         <div class="card-header">
                             <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                            <span class="status-pill au-stock">🇦🇺 Australia Stock</span>
                         </div>
                         <h3 class="card-title">Dell Latitude PC</h3>
                         <p class="card-desc">Reliable business laptop built tough. Excellent keyboard and battery endurance.</p>
@@ -580,88 +629,43 @@
                             <span class="spec-tag">512GB NVMe</span>
                             <span class="spec-tag">Win 11 Pro</span>
                         </div>
+                        <div class="shipping-info">
+                            🚀 Delivery: $59.99 AUD (Australia-Wide)
+                        </div>
                     </div>
                     <div class="price-row">
                         <span class="price">$320 AUD</span>
-                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                        <a href="#trade-section" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- DEDICATED OUT OF STOCK SECTION -->
-        <section class="stock-group" id="out-of-stock">
-            <div class="section-header">
-                <h2 class="section-title pink">Restocking & Incoming</h2>
-                <p class="section-desc">Popular categories currently being refurbished or waiting for new inventory.</p>
-            </div>
-
-            <div class="products-grid">
-                <!-- Out of Stock Category 1 -->
-                <div class="glass-card out-of-stock">
-                    <div>
-                        <div class="card-header">
-                            <span class="status-pill out-stock">Out of Stock</span>
-                        </div>
-                        <h3 class="card-title">iMac All-In-One</h3>
-                        <p class="card-desc">Sleek desktop machines with high-resolution displays. New stock arriving soon.</p>
-                        <div class="spec-list">
-                            <span class="spec-tag">21.5-inch / 27-inch</span>
-                            <span class="spec-tag">4K / 5K Retina</span>
-                            <span class="spec-tag">SSD Upgraded</span>
-                        </div>
-                    </div>
-                    <div class="price-row">
-                        <span class="price" style="font-size: 1.1rem; color: #a1a1aa;">Pre-Reserve</span>
-                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem; background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);">Notify Me</a>
-                    </div>
+        <!-- DEDICATED TRADE-IN & ENQUIRE SECTION -->
+        <section class="page-section" id="trade-section">
+            <div class="sell-section">
+                <div class="section-header">
+                    <h2 class="section-title pink">Trade-In & Purchase Enquiries</h2>
+                    <p class="section-desc">Got a device to sell or want to secure one of our available laptops? Drop your details below.</p>
                 </div>
 
-                <!-- Out of Stock Category 2 -->
-                <div class="glass-card out-of-stock">
-                    <div>
-                        <div class="card-header">
-                            <span class="status-pill out-stock">Out of Stock</span>
-                        </div>
-                        <h3 class="card-title">Custom Gaming PCs</h3>
-                        <p class="card-desc">Dedicated GPU setups for esports and heavy desktop workflows. Restocking soon!</p>
-                        <div class="spec-list">
-                            <span class="spec-tag">NVIDIA GTX / RTX</span>
-                            <span class="spec-tag">16GB+ RAM</span>
-                            <span class="spec-tag">RGB Glass Cases</span>
-                        </div>
-                    </div>
-                    <div class="price-row">
-                        <span class="price" style="font-size: 1.1rem; color: #a1a1aa;">Pre-Reserve</span>
-                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem; background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);">Notify Me</a>
-                    </div>
-                </div>
+                <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
+                    
+                    <select name="request_type" required>
+                        <option value="" disabled selected>Select Request Type</option>
+                        <option value="Enquire to Buy Stock">Enquire to Buy Available Laptop</option>
+                        <option value="Trade-In MacBook / iPad">Trade-In MacBook / iPad</option>
+                        <option value="Trade-In Windows Laptop / PC">Trade-In Windows Laptop / PC</option>
+                    </select>
+                    
+                    <input type="text" name="model" placeholder="Device Model & Details (e.g. MacBook Pro 13 / Dell Latitude)" required>
+                    <textarea name="details" placeholder="Tell us about the device condition or your delivery request details..." required></textarea>
+                    
+                    <button type="submit" class="btn-fluid pink-btn submit-btn">Send Request</button>
+                </form>
             </div>
-        </section>
-
-        <!-- TRADE-IN FORM WITH FORMSPREE ENDPOINT -->
-        <section class="sell-section" id="sell">
-            <div class="section-header">
-                <h2 class="section-title">Trade-In or Request a Quote</h2>
-                <p class="section-desc">Got a device to sell or want to reserve upcoming stock? Drop your info below.</p>
-            </div>
-
-            <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
-                
-                <select name="device_type" required>
-                    <option value="" disabled selected>Select Request Type</option>
-                    <option value="Trade-In MacBook / iPad">Trade-In MacBook / iPad</option>
-                    <option value="Trade-In Windows Laptop / PC">Trade-In Windows Laptop / PC</option>
-                    <option value="Reserve Out-Of-Stock Item">Reserve / Notify Out-Of-Stock Item</option>
-                </select>
-                
-                <input type="text" name="model" placeholder="Model & Year (e.g., 2019 iMac 21.5-inch)" required>
-                <textarea name="details" placeholder="Describe condition, specs (RAM, storage...), or what stock item you are looking for..." required></textarea>
-                
-                <button type="submit" class="btn-fluid submit-btn">Send Request</button>
-            </form>
         </section>
 
         <footer>
@@ -733,7 +737,7 @@
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 10);
 
-        // Neon Lights
+        // Neon Lights (Cyan & Magenta)
         const cyanLight = new THREE.PointLight(0x00f0ff, 25, 35);
         scene.add(cyanLight);
 
@@ -809,7 +813,6 @@
             mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        // Direct Canvas Click Handler for Guaranteed Shockwave
         canvas.addEventListener('click', () => {
             shockwave = 1.0;
         });
@@ -827,14 +830,12 @@
 
             shockwave = Math.max(0, shockwave - 0.025);
 
-            // Hyper-Cube Motion
             hyperCube.rotation.x = elapsed * 0.4 + targetY * 0.5;
             hyperCube.rotation.y = elapsed * 0.5 + targetX * 0.5;
 
             innerCore.rotation.x = -elapsed * 0.8;
             innerCore.rotation.y = -elapsed * 0.9;
 
-            // Counter-rotating rings with shockwave expansion
             rings.forEach((ring, index) => {
                 const dir = index % 2 === 0 ? 1 : -1;
                 ring.rotation.z = elapsed * (0.4 + index * 0.1) * dir + shockwave * 2.5;
@@ -844,7 +845,6 @@
 
             particles.rotation.y = elapsed * 0.02 + shockwave * 0.5;
 
-            // Orbiting Neon Lights
             cyanLight.position.x = Math.sin(elapsed * 1.5) * 6;
             cyanLight.position.y = Math.cos(elapsed * 1.0) * 5;
 
