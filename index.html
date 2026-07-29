@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     
-    <title>ReByte | Quality Laptops & PCs</title>
+    <title>ReByte | Premium Tech & Refurbished Laptops</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
@@ -51,7 +51,7 @@
             pointer-events: auto;
         }
 
-        /* --- DYNAMIC ISLAND (INSTANT MINIMIZE & STOP-TO-EXPAND) --- */
+        /* --- DYNAMIC ISLAND (ULTRA-TRANSPARENT GLASS) --- */
         .island-wrapper {
             position: fixed;
             top: 1.5rem;
@@ -71,27 +71,30 @@
             justify-content: space-between;
             width: 90%;
             max-width: 800px;
-            padding: 0.9rem 2rem;
-            background: rgba(10, 10, 20, 0.5);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 0.85rem 2.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 100px;
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.2), inset 0 1px 2px rgba(255,255,255,0.4);
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        padding 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.6),
+                        0 0 30px rgba(0, 240, 255, 0.15);
+            transition: width 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        padding 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                         background 0.4s ease,
                         border-color 0.4s ease,
                         box-shadow 0.4s ease;
             cursor: pointer;
+            animation: floatIsland 6s ease-in-out infinite;
         }
 
         header.dynamic-island.scrolling {
             width: 160px;
             padding: 0.5rem 1rem;
-            background: rgba(5, 5, 12, 0.92);
-            border-color: rgba(255, 0, 128, 0.7);
-            box-shadow: 0 0 30px rgba(255, 0, 128, 0.5), inset 0 1px 2px rgba(255,255,255,0.5);
+            background: rgba(10, 10, 25, 0.4);
+            border-color: rgba(255, 0, 128, 0.8);
+            box-shadow: 0 0 35px rgba(255, 0, 128, 0.6), inset 0 1px 2px rgba(255,255,255,0.7);
         }
 
         .logo {
@@ -99,29 +102,26 @@
             align-items: center;
             gap: 10px;
             font-weight: 900;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             letter-spacing: 0.5px;
             user-select: none;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #ffffff;
         }
 
         .logo svg {
-            filter: drop-shadow(0 0 10px #00f0ff);
+            filter: drop-shadow(0 0 12px #00f0ff);
+            animation: pulseGlow 3s ease-in-out infinite alternate;
         }
 
         .logo:hover {
-            transform: scale(1.08) rotate(-2deg);
-        }
-
-        .logo:active {
-            transform: scale(0.92);
+            transform: scale(1.1) rotate(-3deg);
         }
 
         nav {
             display: flex;
-            gap: 1.5rem;
-            transition: opacity 0.2s ease, transform 0.2s ease;
+            gap: 1.8rem;
+            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         header.dynamic-island.scrolling nav {
@@ -132,38 +132,73 @@
         }
 
         nav a {
-            color: #a1a1aa;
+            color: #d1d1d6;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s, transform 0.2s;
+            font-size: 0.92rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #00f0ff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px #00f0ff;
         }
 
         nav a:hover {
-            color: #00f0ff;
-            text-shadow: 0 0 12px rgba(0, 240, 255, 0.8);
+            color: #ffffff;
             transform: translateY(-2px);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            margin: 7rem 0 6rem;
+            margin: 7rem 0 5rem;
             text-align: center;
         }
 
         .hero-card {
-            background: rgba(12, 12, 22, 0.45);
-            backdrop-filter: blur(45px);
-            -webkit-backdrop-filter: blur(45px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            padding: 5rem 2.5rem;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 240, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(60px) saturate(180%);
+            -webkit-backdrop-filter: blur(60px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 44px;
+            padding: 5.5rem 2.5rem;
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 50px rgba(255, 255, 255, 0.05),
+                        0 0 40px rgba(0, 240, 255, 0.1);
+            animation: floatHero 8s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,240,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+            animation: rotateGlow 15s linear infinite;
         }
 
         h1 {
-            font-size: 4.2rem;
+            font-size: 4.4rem;
             font-weight: 900;
             line-height: 1.05;
             letter-spacing: -2px;
@@ -171,14 +206,14 @@
             background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
         }
 
         p.subtitle {
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             color: #a1a1aa;
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
+            max-width: 620px;
+            margin: 0 auto 2.8rem;
             line-height: 1.5;
         }
 
@@ -186,7 +221,7 @@
         .btn-fluid {
             position: relative;
             display: inline-block;
-            padding: 1.1rem 2.8rem;
+            padding: 1.15rem 3rem;
             font-size: 1.05rem;
             font-weight: 800;
             color: #000000;
@@ -194,120 +229,235 @@
             border: none;
             border-radius: 100px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
+            overflow: hidden;
         }
 
         .btn-fluid:hover {
             transform: translateY(-6px) scale(1.06);
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.9), 0 10px 30px rgba(255, 0, 128, 0.5);
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.9), 0 12px 35px rgba(255, 0, 128, 0.6);
             background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
         }
 
         .btn-fluid:active {
-            transform: translateY(-1px) scale(0.95);
+            transform: translateY(-1px) scale(0.96);
         }
 
-        /* --- CATEGORIES & INVENTORY --- */
-        .section-title {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
+        /* --- SECTION HEADERS & GLASS CATEGORIES --- */
+        .section-header {
             text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .section-title.pink {
             background: linear-gradient(180deg, #ffffff 0%, #ff0080 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .inventory-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        .section-desc {
+            color: #a1a1aa;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* --- DEDICATED IN STOCK & OUT OF STOCK SECTIONS --- */
+        .stock-group {
             margin-bottom: 6rem;
         }
 
-        .category-card {
-            background: rgba(18, 18, 30, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 36px;
-            padding: 3.5rem 2rem;
-            text-align: center;
-            backdrop-filter: blur(35px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .category-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(0, 240, 255, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.25);
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
         }
 
-        .category-card h3 {
-            font-size: 2.2rem;
-            margin-bottom: 0.8rem;
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 240, 255, 0.25);
         }
 
-        .category-card p {
-            color: #a1a1aa;
-            margin-bottom: 2.2rem;
-            font-size: 1rem;
+        .glass-card:hover::after {
+            transform: translate(30%, 30%);
         }
 
-        .stock-badge {
-            display: inline-block;
-            padding: 0.5rem 1.4rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+        .glass-card.out-of-stock:hover {
+            border-color: rgba(255, 0, 128, 0.5);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(255, 0, 128, 0.25);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
             border-radius: 100px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .status-pill.in-stock {
+            background: rgba(0, 255, 128, 0.1);
+            border: 1px solid rgba(0, 255, 128, 0.4);
+            color: #00ff80;
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+        }
+
+        .status-pill.in-stock .dot {
+            width: 7px;
+            height: 7px;
+            background-color: #00ff80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff80;
+            animation: pulseDot 1.5s infinite;
+        }
+
+        .status-pill.out-stock {
+            background: rgba(255, 0, 128, 0.1);
+            border: 1px solid rgba(255, 0, 128, 0.4);
+            color: #ff0080;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
             color: #a1a1aa;
-            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.8rem;
+        }
+
+        .spec-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            color: #e4e4e7;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         /* --- TRADE-IN FORM --- */
         .sell-section {
-            background: rgba(18, 18, 30, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            padding: 4rem 2.5rem;
-            backdrop-filter: blur(45px);
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 44px;
+            padding: 4.5rem 2.5rem;
+            backdrop-filter: blur(50px) saturate(180%);
+            -webkit-backdrop-filter: blur(50px) saturate(180%);
             margin-bottom: 6rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
+            gap: 1.4rem;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 1.1rem;
+            padding: 1.15rem;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
             color: #ffffff;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         input:focus, select:focus, textarea:focus {
             border-color: #00f0ff;
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.35);
             transform: scale(1.01);
         }
 
         select option {
-            background: #101018;
+            background: #080812;
             color: #ffffff;
         }
 
         textarea {
             grid-column: span 2;
-            height: 130px;
+            height: 140px;
             resize: none;
         }
 
@@ -318,35 +468,62 @@
         footer {
             text-align: center;
             padding: 3rem 0;
-            color: #52525b;
+            color: #71717a;
             font-size: 0.9rem;
         }
 
+        /* --- KEYFRAME ANIMATIONS --- */
+        @keyframes floatIsland {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes floatHero {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 8px #00f0ff); }
+            100% { filter: drop-shadow(0 0 18px #ff0080); }
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            .inventory-grid, .form-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; }
+            .form-grid { grid-template-columns: 1fr; }
             textarea, .submit-btn { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="webgl-canvas" title="Click background to release gravity shockwaves!"></canvas>
+    <canvas id="webgl-canvas" title="Click background to release gravity shockwaves & hyper-space jumps!"></canvas>
 
     <div class="container">
         <!-- DYNAMIC ISLAND HEADER -->
         <div class="island-wrapper">
             <header class="dynamic-island" id="dynamic-island">
                 <div class="logo" id="secret-logo-btn" title="Triple click for Turbo Mode!">
-                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="13" stroke="#00f0ff" stroke-width="2.5"/>
                         <path d="M16 8V16L21 21" stroke="#ff0080" stroke-width="2.5" stroke-linecap="round"/>
                     </svg>
                     <span>ReByte</span>
                 </div>
                 <nav>
-                    <a href="#inventory">Browse Stock</a>
-                    <a href="#sell">Sell Your Tech</a>
+                    <a href="#in-stock">Available Stock</a>
+                    <a href="#out-of-stock">Restocking</a>
+                    <a href="#sell">Trade-In</a>
                 </nav>
             </header>
         </div>
@@ -355,50 +532,135 @@
         <section class="hero">
             <div class="hero-card">
                 <h1>Cheap prices with good laptops.</h1>
-                <p class="subtitle">Fair deals on quality pre-owned MacBooks, iMacs, and PCs. Buy or trade-in with total ease.</p>
+                <p class="subtitle">Fair deals on quality pre-owned MacBooks, iMacs, and PCs. Fully refurbished, stress-tested, and ready for work.</p>
                 <a href="#sell" class="btn-fluid">Get a Cash Quote</a>
             </div>
         </section>
 
-        <!-- CATEGORIES -->
-        <section id="inventory">
-            <h2 class="section-title">Stock Categories</h2>
+        <!-- DEDICATED IN-STOCK SECTION -->
+        <section class="stock-group" id="in-stock">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Buy (In Stock)</h2>
+                <p class="section-desc">Fully tested and ready for immediate pick up or dispatch.</p>
+            </div>
 
-            <div class="inventory-grid">
-                <div class="category-card">
-                    <h3>MacBook / iMac</h3>
-                    <p>Apple laptops and desktop all-in-ones at fair prices.</p>
-                    <span class="stock-badge">Currently Out of Stock — New Arrivals Soon</span>
+            <div class="products-grid">
+                <!-- Product Card 1 -->
+                <div class="glass-card">
+                    <div>
+                        <div class="card-header">
+                            <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                        </div>
+                        <h3 class="card-title">MacBook Pro 13"</h3>
+                        <p class="card-desc">Smooth performance for coding, studying, and everyday tasks. Refurbished to pristine working condition.</p>
+                        <div class="spec-list">
+                            <span class="spec-tag">Intel Core i5</span>
+                            <span class="spec-tag">8GB RAM</span>
+                            <span class="spec-tag">256GB SSD</span>
+                            <span class="spec-tag">Retina Display</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">$380 AUD</span>
+                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                    </div>
                 </div>
 
-                <div class="category-card">
-                    <h3>Laptop / PC</h3>
-                    <p>Windows laptops and desktop computer setups.</p>
-                    <span class="stock-badge">Currently Out of Stock — New Arrivals Soon</span>
+                <!-- Product Card 2 -->
+                <div class="glass-card">
+                    <div>
+                        <div class="card-header">
+                            <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                        </div>
+                        <h3 class="card-title">Dell Latitude PC</h3>
+                        <p class="card-desc">Reliable business laptop built tough. Excellent keyboard and battery endurance.</p>
+                        <div class="spec-list">
+                            <span class="spec-tag">Intel i5 8th Gen</span>
+                            <span class="spec-tag">16GB RAM</span>
+                            <span class="spec-tag">512GB NVMe</span>
+                            <span class="spec-tag">Win 11 Pro</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">$320 AUD</span>
+                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEDICATED OUT OF STOCK SECTION -->
+        <section class="stock-group" id="out-of-stock">
+            <div class="section-header">
+                <h2 class="section-title pink">Restocking & Incoming</h2>
+                <p class="section-desc">Popular categories currently being refurbished or waiting for new inventory.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Out of Stock Category 1 -->
+                <div class="glass-card out-of-stock">
+                    <div>
+                        <div class="card-header">
+                            <span class="status-pill out-stock">Out of Stock</span>
+                        </div>
+                        <h3 class="card-title">iMac All-In-One</h3>
+                        <p class="card-desc">Sleek desktop machines with high-resolution displays. New stock arriving soon.</p>
+                        <div class="spec-list">
+                            <span class="spec-tag">21.5-inch / 27-inch</span>
+                            <span class="spec-tag">4K / 5K Retina</span>
+                            <span class="spec-tag">SSD Upgraded</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <span class="price" style="font-size: 1.1rem; color: #a1a1aa;">Pre-Reserve</span>
+                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem; background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);">Notify Me</a>
+                    </div>
+                </div>
+
+                <!-- Out of Stock Category 2 -->
+                <div class="glass-card out-of-stock">
+                    <div>
+                        <div class="card-header">
+                            <span class="status-pill out-stock">Out of Stock</span>
+                        </div>
+                        <h3 class="card-title">Custom Gaming PCs</h3>
+                        <p class="card-desc">Dedicated GPU setups for esports and heavy desktop workflows. Restocking soon!</p>
+                        <div class="spec-list">
+                            <span class="spec-tag">NVIDIA GTX / RTX</span>
+                            <span class="spec-tag">16GB+ RAM</span>
+                            <span class="spec-tag">RGB Glass Cases</span>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <span class="price" style="font-size: 1.1rem; color: #a1a1aa;">Pre-Reserve</span>
+                        <a href="#sell" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem; background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);">Notify Me</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- TRADE-IN FORM WITH FORMSPREE ENDPOINT -->
         <section class="sell-section" id="sell">
-            <h2 class="section-title">Trade-In Your Device</h2>
-            <p style="text-align: center; color: #a1a1aa; margin-bottom: 2rem;">Fill out your device details below to send us a direct quote request.</p>
+            <div class="section-header">
+                <h2 class="section-title">Trade-In or Request a Quote</h2>
+                <p class="section-desc">Got a device to sell or want to reserve upcoming stock? Drop your info below.</p>
+            </div>
 
             <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
                 
                 <select name="device_type" required>
-                    <option value="" disabled selected>Select Device Type</option>
-                    <option value="MacBook / iPad">MacBook / iPad</option>
-                    <option value="iMac / All-In-One Desktop">iMac / All-In-One Desktop</option>
-                    <option value="Windows Laptop / Desktop PC">Windows Laptop / Desktop PC</option>
+                    <option value="" disabled selected>Select Request Type</option>
+                    <option value="Trade-In MacBook / iPad">Trade-In MacBook / iPad</option>
+                    <option value="Trade-In Windows Laptop / PC">Trade-In Windows Laptop / PC</option>
+                    <option value="Reserve Out-Of-Stock Item">Reserve / Notify Out-Of-Stock Item</option>
                 </select>
                 
                 <input type="text" name="model" placeholder="Model & Year (e.g., 2019 iMac 21.5-inch)" required>
-                <textarea name="details" placeholder="Describe the machine's condition and specs (RAM, storage, minor flaws...)" required></textarea>
+                <textarea name="details" placeholder="Describe condition, specs (RAM, storage...), or what stock item you are looking for..." required></textarea>
                 
-                <button type="submit" class="btn-fluid submit-btn">Send Trade-In Request</button>
+                <button type="submit" class="btn-fluid submit-btn">Send Request</button>
             </form>
         </section>
 
@@ -472,10 +734,10 @@
         camera.position.set(0, 0, 10);
 
         // Neon Lights
-        const cyanLight = new THREE.PointLight(0x00f0ff, 20, 30);
+        const cyanLight = new THREE.PointLight(0x00f0ff, 25, 35);
         scene.add(cyanLight);
 
-        const magentaLight = new THREE.PointLight(0xff0080, 20, 30);
+        const magentaLight = new THREE.PointLight(0xff0080, 25, 35);
         scene.add(magentaLight);
 
         // Master 3D Group
@@ -492,11 +754,11 @@
         const innerCoreGeo = new THREE.IcosahedronGeometry(1.2, 1);
         const innerCoreMat = new THREE.MeshPhysicalMaterial({
             color: 0xff0080,
-            transmission: 0.85,
+            transmission: 0.9,
             opacity: 1.0,
             transparent: true,
-            roughness: 0.15,
-            metalness: 0.8,
+            roughness: 0.1,
+            metalness: 0.9,
             clearcoat: 1.0,
             wireframe: true
         });
@@ -517,14 +779,14 @@
         }
 
         // Quantum Particle Grid
-        const particleCount = 1200;
+        const particleCount = 1400;
         const particleGeo = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
 
         for (let i = 0; i < particleCount * 3; i += 3) {
-            positions[i] = (Math.random() - 0.5) * 25;
-            positions[i + 1] = (Math.random() - 0.5) * 25;
-            positions[i + 2] = (Math.random() - 0.5) * 25;
+            positions[i] = (Math.random() - 0.5) * 28;
+            positions[i + 1] = (Math.random() - 0.5) * 28;
+            positions[i + 2] = (Math.random() - 0.5) * 28;
         }
 
         particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -532,7 +794,7 @@
             size: 0.045,
             color: 0x00f0ff,
             transparent: true,
-            opacity: 0.65
+            opacity: 0.75
         });
         const particles = new THREE.Points(particleGeo, particleMat);
         scene.add(particles);
@@ -563,7 +825,7 @@
             targetX += (mouseX - targetX) * 0.05;
             targetY += (mouseY - targetY) * 0.05;
 
-            shockwave = Math.max(0, shockwave - 0.03);
+            shockwave = Math.max(0, shockwave - 0.025);
 
             // Hyper-Cube Motion
             hyperCube.rotation.x = elapsed * 0.4 + targetY * 0.5;
@@ -575,11 +837,12 @@
             // Counter-rotating rings with shockwave expansion
             rings.forEach((ring, index) => {
                 const dir = index % 2 === 0 ? 1 : -1;
-                ring.rotation.z = elapsed * (0.4 + index * 0.1) * dir + shockwave * 2.0;
+                ring.rotation.z = elapsed * (0.4 + index * 0.1) * dir + shockwave * 2.5;
                 ring.rotation.x = elapsed * (0.3 + index * 0.15) * dir;
+                ring.scale.setScalar(1 + shockwave * 0.2);
             });
 
-            particles.rotation.y = elapsed * 0.02;
+            particles.rotation.y = elapsed * 0.02 + shockwave * 0.5;
 
             // Orbiting Neon Lights
             cyanLight.position.x = Math.sin(elapsed * 1.5) * 6;
