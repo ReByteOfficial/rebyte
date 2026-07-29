@@ -346,8 +346,8 @@
 
         .glass-card:hover {
             transform: translateY(-12px) scale(1.02);
-            border-color: rgba(0, 240, 255, 0.5);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 240, 255, 0.25);
+            border-color: rgba(255, 0, 128, 0.5);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(255, 0, 128, 0.25);
         }
 
         .glass-card:hover::after {
@@ -375,19 +375,19 @@
             text-transform: uppercase;
         }
 
-        .status-pill.in-stock {
-            background: rgba(0, 255, 128, 0.1);
-            border: 1px solid rgba(0, 255, 128, 0.4);
-            color: #00ff80;
-            box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+        .status-pill.out-stock {
+            background: rgba(255, 0, 128, 0.1);
+            border: 1px solid rgba(255, 0, 128, 0.4);
+            color: #ff0080;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.2);
         }
 
-        .status-pill.in-stock .dot {
+        .status-pill.out-stock .dot {
             width: 7px;
             height: 7px;
-            background-color: #00ff80;
+            background-color: #ff0080;
             border-radius: 50%;
-            box-shadow: 0 0 8px #00ff80;
+            box-shadow: 0 0 8px #ff0080;
             animation: pulseDot 1.5s infinite;
         }
 
@@ -451,7 +451,78 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        /* --- DEDICATED TRADE-IN / ENQUIRE SECTION --- */
+        /* --- BUYER'S GUIDE SECTION --- */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .guide-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 36px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+        }
+
+        .guide-card:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            transform: translateY(-8px);
+        }
+
+        .guide-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card p {
+            color: #a1a1aa;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .guide-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .guide-card ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            color: #e4e4e7;
+            font-size: 0.92rem;
+        }
+
+        .guide-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00f0ff;
+            font-weight: bold;
+        }
+
+        .guide-card.pink-border:hover {
+            border-color: rgba(255, 0, 128, 0.5);
+        }
+
+        .guide-card.pink-border ul li::before {
+            color: #ff0080;
+        }
+
+        /* --- TRADE-IN / ENQUIRE SECTION --- */
         .sell-section {
             background: rgba(255, 255, 255, 0.025);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -559,6 +630,7 @@
                 </div>
                 <nav>
                     <a href="#stock-section">Stock</a>
+                    <a href="#guide-section">Buying Guide</a>
                     <a href="#trade-section">Trade-In & Enquire</a>
                 </nav>
             </header>
@@ -593,11 +665,11 @@
                 <div class="glass-card">
                     <div>
                         <div class="card-header">
-                            <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                            <span class="status-pill out-stock"><span class="dot"></span> Out of Stock</span>
                             <span class="status-pill au-stock">🇦🇺 Australia Stock</span>
                         </div>
                         <h3 class="card-title">MacBook Pro 13"</h3>
-                        <p class="card-desc">Smooth performance for coding, studying, and everyday tasks. Refurbished to pristine working condition.</p>
+                        <p class="card-desc">Smooth performance for coding, studying, and everyday tasks. Currently awaiting new refurbished stock.</p>
                         <div class="spec-list">
                             <span class="spec-tag">Intel Core i5</span>
                             <span class="spec-tag">8GB RAM</span>
@@ -609,8 +681,8 @@
                         </div>
                     </div>
                     <div class="price-row">
-                        <span class="price">$380 AUD</span>
-                        <a href="#trade-section" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                        <span class="price" style="font-size: 1.2rem; color: #a1a1aa;">Restocking Soon</span>
+                        <a href="#trade-section" class="btn-fluid pink-btn" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Notify Me</a>
                     </div>
                 </div>
 
@@ -618,11 +690,11 @@
                 <div class="glass-card">
                     <div>
                         <div class="card-header">
-                            <span class="status-pill in-stock"><span class="dot"></span> Ready to Ship</span>
+                            <span class="status-pill out-stock"><span class="dot"></span> Out of Stock</span>
                             <span class="status-pill au-stock">🇦🇺 Australia Stock</span>
                         </div>
                         <h3 class="card-title">Dell Latitude PC</h3>
-                        <p class="card-desc">Reliable business laptop built tough. Excellent keyboard and battery endurance.</p>
+                        <p class="card-desc">Reliable business laptop built tough. Excellent keyboard and battery endurance. Currently restock in progress.</p>
                         <div class="spec-list">
                             <span class="spec-tag">Intel i5 8th Gen</span>
                             <span class="spec-tag">16GB RAM</span>
@@ -634,9 +706,43 @@
                         </div>
                     </div>
                     <div class="price-row">
-                        <span class="price">$320 AUD</span>
-                        <a href="#trade-section" class="btn-fluid" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Enquire</a>
+                        <span class="price" style="font-size: 1.2rem; color: #a1a1aa;">Restocking Soon</span>
+                        <a href="#trade-section" class="btn-fluid pink-btn" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">Notify Me</a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAPTOP BUYER'S GUIDE SECTION -->
+        <section class="page-section" id="guide-section">
+            <div class="section-header">
+                <h2 class="section-title">Which Laptop Should You Buy?</h2>
+                <p class="section-desc">Not sure what specs you need? Here is our simple recommendation for your setup.</p>
+            </div>
+
+            <div class="guide-grid">
+                <!-- College Students Guide -->
+                <div class="guide-card">
+                    <div class="guide-icon">🎓</div>
+                    <h3>For College Students</h3>
+                    <p>You need a laptop that is fast, lightweight, and can handle typing essays, opening dozens of research tabs, and running video calls without slowing down.</p>
+                    <ul>
+                        <li><strong>Recommended RAM:</strong> 8GB to 16GB for smooth multitasking.</li>
+                        <li><strong>Storage:</strong> 256GB+ SSD for instant startup and file saves.</li>
+                        <li><strong>Best Choice:</strong> <strong>MacBook Pro</strong> or <strong>Dell Latitude</strong>. Apple MacBooks offer incredible battery life and build quality, while Windows laptops like the Dell Latitude give you ultimate software flexibility.</li>
+                    </ul>
+                </div>
+
+                <!-- Seniors & Everyday Use Guide -->
+                <div class="guide-card pink-border">
+                    <div class="guide-icon">👓</div>
+                    <h3>For Seniors & Everyday Use</h3>
+                    <p>You want a laptop that is simple, reliable, easy to read, and hassle-free for browsing the web, checking emails, watching videos, and staying in touch with family.</p>
+                    <ul>
+                        <li><strong>Screen Quality:</strong> Crisp Retina or Full HD display for clear reading.</li>
+                        <li><strong>Ease of Use:</strong> Simple operating system with fast, reliable responsiveness.</li>
+                        <li><strong>Best Choice:</strong> <strong>MacBook Pro / Air</strong> or a clean <strong>Windows 11 PC</strong>. MacBooks offer simple, intuitive navigation, while Windows laptops provide familiar traditional controls at a budget-friendly price.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -645,8 +751,8 @@
         <section class="page-section" id="trade-section">
             <div class="sell-section">
                 <div class="section-header">
-                    <h2 class="section-title pink">Trade-In & Purchase Enquiries</h2>
-                    <p class="section-desc">Got a device to sell or want to secure one of our available laptops? Drop your details below.</p>
+                    <h2 class="section-title pink">Trade-In & Restock Enquiries</h2>
+                    <p class="section-desc">Want to sell your old laptop or get notified as soon as a MacBook or Dell PC arrives? Send us a message.</p>
                 </div>
 
                 <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
@@ -655,13 +761,13 @@
                     
                     <select name="request_type" required>
                         <option value="" disabled selected>Select Request Type</option>
-                        <option value="Enquire to Buy Stock">Enquire to Buy Available Laptop</option>
+                        <option value="Notify Me When In Stock">Notify Me When Stock Arrives</option>
                         <option value="Trade-In MacBook / iPad">Trade-In MacBook / iPad</option>
                         <option value="Trade-In Windows Laptop / PC">Trade-In Windows Laptop / PC</option>
                     </select>
                     
-                    <input type="text" name="model" placeholder="Device Model & Details (e.g. MacBook Pro 13 / Dell Latitude)" required>
-                    <textarea name="details" placeholder="Tell us about the device condition or your delivery request details..." required></textarea>
+                    <input type="text" name="model" placeholder="Device Model & Details (e.g. Interested in MacBook Pro 13)" required>
+                    <textarea name="details" placeholder="Tell us what device you are looking for or the condition of the tech you want to sell..." required></textarea>
                     
                     <button type="submit" class="btn-fluid pink-btn submit-btn">Send Request</button>
                 </form>
