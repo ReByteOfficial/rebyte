@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac & PC Stock | ReByte Inventory</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body, html {
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            background-color: #020205;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* DYNAMIC ISLAND */
+        .island-wrapper {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        header.dynamic-island {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            padding: 0.85rem 2.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(60px) saturate(220%);
+            -webkit-backdrop-filter: blur(60px) saturate(220%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 100px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+        }
+
+        header.dynamic-island.scrolling {
+            width: 160px;
+            padding: 0.5rem 1rem;
+            background: rgba(10, 10, 25, 0.5);
+            border-color: rgba(255, 0, 128, 0.8);
+        }
+
+        header.dynamic-island.scrolling nav { display: none; }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 1.35rem;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #d1d1d6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active { color: #00f0ff; }
+
+        .page-header {
+            margin-top: 8rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- PRODUCT STOCK GRID --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 36px;
+            padding: 2rem;
+            backdrop-filter: blur(50px) saturate(200%);
+            -webkit-backdrop-filter: blur(50px) saturate(200%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 240, 255, 0.5);
+        }
+
+        /* --- 6-IMAGE SLIDER CONTAINER --- */
+        .image-slider {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            margin-bottom: 1.5rem;
+        }
+
+        .image-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .image-slider img.active {
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .slider-btn:hover {
+            background: #00f0ff;
+            color: #000;
+            box-shadow: 0 0 15px #00f0ff;
+        }
+
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
+
+        .image-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: #00f0ff;
+            font-weight: 700;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-pill.out-stock {
+            background: rgba(255, 0, 128, 0.1);
+            border: 1px solid rgba(255, 0, 128, 0.4);
+            color: #ff0080;
+        }
+
+        .card-title { font-size: 1.8rem; font-weight: 800; margin: 1rem 0 0.5rem; }
+        .card-desc { color: #a1a1aa; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; }
+
+        .spec-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .spec-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.35rem 0.8rem; border-radius: 12px; font-size: 0.82rem; }
+
+        .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+        .btn-fluid {
+            padding: 0.75rem 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #000;
+            background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
+            border: none;
+            border-radius: 100px;
+            text-decoration: none;
+            box-shadow: 0 0 25px rgba(255, 0, 128, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-fluid:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 0, 128, 0.8); }
+
+        footer { text-align: center; padding: 3rem 0; color: #71717a; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <div class="container">
+        <!-- DYNAMIC ISLAND HEADER -->
+        <div class="island-wrapper">
+            <header class="dynamic-island" id="dynamic-island">
+                <a href="./index.html" class="logo">
+                    <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="13" stroke="#00f0ff" stroke-width="2.5"/>
+                        <path d="M16 8V16L21 21" stroke="#ff0080" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>ReByte</span>
+                </a>
+                <nav>
+                    <a href="./index.html">Home</a>
+                    <a href="./macbooks.html" class="active">Mac & PC Stock</a>
+                    <a href="./index.html#trade-section">Trade-In</a>
+                </nav>
+            </header>
+        </div>
+
+        <div class="page-header">
+            <h1>Refurbished Laptops</h1>
+            <p style="color: #a1a1aa; margin-top: 0.5rem;">Explore our pre-owned stock with full 6-angle image galleries.</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- MacBook Pro Card -->
+            <div class="glass-card">
+                <div>
+                    <!-- 6-IMAGE GALLERY SLIDER -->
+                    <div class="image-slider" id="slider-macbook">
+                        <button class="slider-btn prev" onclick="changeImage('slider-macbook', -1)">❮</button>
+                        <button class="slider-btn next" onclick="changeImage('slider-macbook', 1)">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="MacBook Front">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="MacBook Side Profile">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="MacBook Keyboard View">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="MacBook Display Close-up">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="MacBook Lid Closed">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="MacBook Ports & Edges">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill out-stock">Out of Stock</span>
+                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
+                    </div>
+
+                    <h3 class="card-title">MacBook Pro 13"</h3>
+                    <p class="card-desc">Sleek aluminum body, powerful Intel Core i5 processor, and vibrant Retina display.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">Intel i5</span>
+                        <span class="spec-tag">8GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <span style="color: #a1a1aa; font-weight: bold;">$59.99 Shipping</span>
+                    <a href="./index.html#trade-section" class="btn-fluid">Notify Me</a>
+                </div>
+            </div>
+
+            <!-- Dell Latitude Card -->
+            <div class="glass-card">
+                <div>
+                    <!-- 6-IMAGE GALLERY SLIDER -->
+                    <div class="image-slider" id="slider-dell">
+                        <button class="slider-btn prev" onclick="changeImage('slider-dell', -1)">❮</button>
+                        <button class="slider-btn next" onclick="changeImage('slider-dell', 1)">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" class="active" alt="Dell PC Front">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="Dell Keyboard View">
+                        <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="Dell Display">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="Dell Ports">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="Dell Lid">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="Dell Angle View">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill out-stock">Out of Stock</span>
+                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
+                    </div>
+
+                    <h3 class="card-title">Dell Latitude PC</h3>
+                    <p class="card-desc">Durable business laptop designed for high productivity, schoolwork, and long hours.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">Intel i5 8th Gen</span>
+                        <span class="spec-tag">16GB RAM</span>
+                        <span class="spec-tag">512GB NVMe</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <span style="color: #a1a1aa; font-weight: bold;">$59.99 Shipping</span>
+                    <a href="./index.html#trade-section" class="btn-fluid">Notify Me</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>&copy; 2026 ReByte. Clean, simple, affordable tech.</footer>
+    </div>
+
+    <script>
+        // --- 6-IMAGE SLIDER LOGIC ---
+        function changeImage(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            const images = slider.querySelectorAll('img');
+            const indicator = slider.querySelector('.image-indicator');
+            let currentIndex = 0;
+
+            images.forEach((img, idx) => {
+                if (img.classList.contains('active')) currentIndex = idx;
+            });
+
+            images[currentIndex].classList.remove('active');
+            let newIndex = (currentIndex + direction + images.length) % images.length;
+            images[newIndex].classList.add('active');
+            indicator.textContent = `${newIndex + 1} / ${images.length}`;
+        }
+
+        // --- DYNAMIC ISLAND scroll behavior ---
+        const island = document.getElementById('dynamic-island');
+        let stopScrollTimer = null;
+        window.addEventListener('scroll', () => {
+            island.classList.add('scrolling');
+            if (stopScrollTimer !== null) clearTimeout(stopScrollTimer);
+            stopScrollTimer = setTimeout(() => { island.classList.remove('scrolling'); }, 150);
+        }, { passive: true });
+
+        // --- THREE.js BACKGROUND ---
+        const canvas = document.getElementById('webgl-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 10);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const geo = new THREE.TorusGeometry(3, 0.03, 16, 100);
+        const mat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+        const ring = new THREE.Mesh(geo, mat);
+        group.add(ring);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            group.rotation.x += 0.005;
+            group.rotation.y += 0.008;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
