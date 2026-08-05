@@ -238,7 +238,64 @@
 
         .btn-fluid:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 0, 128, 0.8); }
 
-        footer { text-align: center; padding: 3rem 0; color: #71717a; font-size: 0.9rem; }
+        /* --- FOOTER STYLING --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .footer-brand p {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .footer-contact h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-email {
+            color: #00f0ff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: #ff0080;
+            text-shadow: 0 0 12px rgba(255, 0, 128, 0.6);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #71717a;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -347,7 +404,23 @@
             </div>
         </div>
 
-        <footer>&copy; 2026 ReByte. Clean, simple, affordable tech.</footer>
+        <!-- INTEGRATED FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ReByte</h3>
+                    <p>Giving Apples a Second Chance.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Direct Contact & Support</h4>
+                    <p>Email: <a href="mailto:rebyteofficial@gmail.com?subject=ReByte%20Stock%20Inquiry" class="contact-email">rebyteofficial@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 ReByte. Clean, simple, affordable tech.
+            </div>
+        </footer>
     </div>
 
     <script>
