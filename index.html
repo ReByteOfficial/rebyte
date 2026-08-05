@@ -23,7 +23,6 @@
             background-color: #020205;
             color: #ffffff;
             overflow-x: hidden;
-            transition: filter 0.5s ease;
         }
 
         #webgl-canvas {
@@ -33,8 +32,12 @@
             width: 100vw;
             height: 100vh;
             z-index: 0;
-            cursor: pointer;
+            cursor: grab;
             pointer-events: auto;
+        }
+
+        #webgl-canvas:active {
+            cursor: grabbing;
         }
 
         .container {
@@ -71,14 +74,14 @@
             width: 90%;
             max-width: 800px;
             padding: 0.85rem 2.2rem;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(60px) saturate(220%);
-            -webkit-backdrop-filter: blur(60px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(80px) saturate(240%);
+            -webkit-backdrop-filter: blur(80px) saturate(240%);
+            border: 1px solid rgba(255, 255, 255, 0.28);
             border-radius: 100px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.8),
-                        0 0 40px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 3px rgba(255, 255, 255, 0.8),
+                        0 0 50px rgba(0, 240, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             animation: floatIsland 6s ease-in-out infinite;
@@ -87,7 +90,7 @@
         header.dynamic-island.scrolling {
             width: 160px;
             padding: 0.5rem 1rem;
-            background: rgba(10, 10, 25, 0.5);
+            background: rgba(10, 10, 25, 0.35);
             border-color: rgba(255, 0, 128, 0.8);
             box-shadow: 0 0 35px rgba(255, 0, 128, 0.7), inset 0 1px 2px rgba(255,255,255,0.8);
         }
@@ -100,7 +103,6 @@
             font-size: 1.35rem;
             letter-spacing: 0.5px;
             user-select: none;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #ffffff;
             text-decoration: none;
         }
@@ -128,15 +130,14 @@
             font-weight: 600;
             font-size: 0.92rem;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
         }
 
         nav a:hover {
             color: #00f0ff;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.9);
         }
 
-        /* --- HERO SECTIONS --- */
+        /* --- HERO SECTIONS & LIQUID GLASS CARDS --- */
         .hero-container {
             margin-top: 7.5rem;
             display: flex;
@@ -146,28 +147,28 @@
         }
 
         .hero-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(70px) saturate(200%);
-            -webkit-backdrop-filter: blur(70px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+            backdrop-filter: blur(90px) saturate(220%);
+            -webkit-backdrop-filter: blur(90px) saturate(220%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 44px;
             padding: 4.5rem 2.5rem;
             text-align: center;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.85), 
-                        inset 0 0 30px rgba(255, 255, 255, 0.1),
-                        0 0 50px rgba(0, 240, 255, 0.15);
+                        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                        0 0 50px rgba(0, 240, 255, 0.12);
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
         }
 
         .hero-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 240, 255, 0.4);
+            transform: translateY(-6px) scale(1.005);
+            border-color: rgba(0, 240, 255, 0.5);
         }
 
         .hero-card.pink-accent:hover {
-            border-color: rgba(255, 0, 128, 0.4);
+            border-color: rgba(255, 0, 128, 0.5);
         }
 
         h1 {
@@ -204,36 +205,56 @@
             flex-wrap: wrap;
         }
 
+        /* --- STYLISH & FLUID BUTTONS --- */
         .btn-fluid {
             position: relative;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 1.15rem 3rem;
             font-size: 1.05rem;
             font-weight: 800;
             color: #000000;
             background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 100px;
             cursor: pointer;
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
+            overflow: hidden;
+        }
+
+        .btn-fluid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-fluid:hover::before {
+            left: 100%;
         }
 
         .btn-fluid.pink-btn {
             background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
-            box-shadow: 0 0 35px rgba(255, 0, 128, 0.6);
+            box-shadow: 0 0 35px rgba(255, 0, 128, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
         }
 
         .btn-fluid.glass-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
         .btn-fluid:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.06);
             box-shadow: 0 0 60px rgba(0, 240, 255, 0.9);
         }
 
@@ -244,10 +265,15 @@
         .btn-fluid.glass-btn:hover {
             border-color: #00f0ff;
             color: #00f0ff;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.5);
+            background: rgba(0, 240, 255, 0.05);
         }
 
-        /* --- EXPANDABLE GLASS BUYER'S GUIDE SECTION --- */
+        .btn-fluid:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* --- GUIDE CARDS --- */
         .page-section {
             padding-top: 3rem;
             margin-bottom: 6rem;
@@ -273,13 +299,13 @@
         }
 
         .guide-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 36px;
             padding: 2.5rem 2rem;
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(80px) saturate(220%);
+            -webkit-backdrop-filter: blur(80px) saturate(220%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
@@ -288,12 +314,12 @@
         .guide-card:hover {
             border-color: rgba(0, 240, 255, 0.6);
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 30px 90px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 30px 90px rgba(0, 240, 255, 0.25);
         }
 
         .guide-card.pink-border:hover {
             border-color: rgba(255, 0, 128, 0.6);
-            box-shadow: 0 30px 90px rgba(255, 0, 128, 0.2);
+            box-shadow: 0 30px 90px rgba(255, 0, 128, 0.25);
         }
 
         .guide-icon { font-size: 2.8rem; margin-bottom: 1rem; }
@@ -309,7 +335,7 @@
             gap: 6px;
         }
 
-        /* --- FULLSCREEN MODAL OVERLAY --- */
+        /* --- FULLSCREEN MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -335,15 +361,15 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 44px;
             padding: 3.5rem 3rem;
             max-width: 750px;
             width: 100%;
-            backdrop-filter: blur(80px) saturate(220%);
-            -webkit-backdrop-filter: blur(80px) saturate(220%);
-            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), 0 0 80px rgba(0, 240, 255, 0.3);
+            backdrop-filter: blur(90px) saturate(240%);
+            -webkit-backdrop-filter: blur(90px) saturate(240%);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 80px rgba(0, 240, 255, 0.3);
             position: relative;
             transform: scale(0.8);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -360,8 +386,8 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
             font-size: 1.2rem;
             cursor: pointer;
@@ -374,7 +400,7 @@
         .close-btn:hover {
             background: #ff0080;
             border-color: #ff0080;
-            transform: rotate(90deg);
+            transform: rotate(90deg) scale(1.1);
             box-shadow: 0 0 20px #ff0080;
         }
 
@@ -403,13 +429,13 @@
 
         /* --- FORM SECTION --- */
         .sell-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 44px;
             padding: 4rem 2.5rem;
-            backdrop-filter: blur(60px) saturate(200%);
-            -webkit-backdrop-filter: blur(60px) saturate(200%);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(80px) saturate(220%);
+            -webkit-backdrop-filter: blur(80px) saturate(220%);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .form-grid {
@@ -421,12 +447,13 @@
         input, select, textarea {
             width: 100%;
             padding: 1.15rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 22px;
             color: #ffffff;
             font-size: 1rem;
             outline: none;
+            backdrop-filter: blur(20px);
             transition: all 0.35s ease;
         }
 
@@ -442,7 +469,7 @@
 
         /* --- FOOTER STYLING --- */
         footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
             padding: 3rem 0;
             margin-top: 4rem;
         }
@@ -460,12 +487,6 @@
             font-size: 1.5rem;
             font-weight: 900;
             color: #ffffff;
-        }
-
-        .footer-brand p {
-            color: #a1a1aa;
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
         }
 
         .footer-contact h4 {
@@ -596,12 +617,11 @@
             </div>
         </section>
 
-        <!-- INTEGRATED FOOTER -->
+        <!-- INTEGRATED FOOTER (Target text removed) -->
         <footer>
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>ReByte</h3>
-                    <p>Giving Apples a Second Chance.</p>
                 </div>
                 
                 <div class="footer-contact">
@@ -661,7 +681,7 @@
             if (e.target.id === 'guideModal') closeModal();
         }
 
-        // --- DYNAMIC ISLAND RESPONSIVENESS FIX ---
+        // --- DYNAMIC ISLAND SCROLL LOGIC ---
         const island = document.getElementById('dynamic-island');
         let stopScrollTimer = null;
         window.addEventListener('scroll', () => {
@@ -670,7 +690,7 @@
             stopScrollTimer = setTimeout(() => { island.classList.remove('scrolling'); }, 150);
         }, { passive: true });
 
-        // --- THREE.js HYPER-CUBE ENGINE ---
+        // --- INTERACTIVE THREE.JS ENGINE WITH MOUSE TRACKING ---
         const canvas = document.getElementById('webgl-canvas');
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -680,10 +700,10 @@
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 10);
 
-        const cyanLight = new THREE.PointLight(0x00f0ff, 30, 40);
+        const cyanLight = new THREE.PointLight(0x00f0ff, 35, 50);
         scene.add(cyanLight);
 
-        const magentaLight = new THREE.PointLight(0xff0080, 30, 40);
+        const magentaLight = new THREE.PointLight(0xff0080, 35, 50);
         scene.add(magentaLight);
 
         const quantumGroup = new THREE.Group();
@@ -699,16 +719,63 @@
         const innerCore = new THREE.Mesh(innerCoreGeo, innerCoreMat);
         quantumGroup.add(innerCore);
 
+        // MOUSE & DRAG INTERACTION
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        let isDragging = false;
+        let previousMouseX = 0, previousMouseY = 0;
+        let dragVelocityX = 0, dragVelocityY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - window.innerWidth / 2) * 0.0015;
+            mouseY = (e.clientY - window.innerHeight / 2) * 0.0015;
+
+            if (isDragging) {
+                const deltaX = e.clientX - previousMouseX;
+                const deltaY = e.clientY - previousMouseY;
+                dragVelocityX = deltaX * 0.005;
+                dragVelocityY = deltaY * 0.005;
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+            }
+        });
+
+        window.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMouseX = e.clientX;
+            previousMouseY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
         const clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
             const elapsed = clock.getElapsedTime();
-            hyperCube.rotation.x = elapsed * 0.4;
-            hyperCube.rotation.y = elapsed * 0.5;
-            innerCore.rotation.x = -elapsed * 0.8;
-            innerCore.rotation.y = -elapsed * 0.9;
-            cyanLight.position.x = Math.sin(elapsed * 1.5) * 6;
-            magentaLight.position.x = -Math.sin(elapsed * 1.5) * 6;
+
+            // Smooth Interpolation towards mouse
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // Apply inertia if dragged
+            if (!isDragging) {
+                dragVelocityX *= 0.95;
+                dragVelocityY *= 0.95;
+            }
+
+            quantumGroup.rotation.y += dragVelocityX + 0.005;
+            quantumGroup.rotation.x += dragVelocityY + 0.003;
+
+            hyperCube.rotation.x = elapsed * 0.3 + targetY;
+            hyperCube.rotation.y = elapsed * 0.4 + targetX;
+            innerCore.rotation.x = -elapsed * 0.6 - targetY;
+            innerCore.rotation.y = -elapsed * 0.7 - targetX;
+
+            cyanLight.position.x = Math.sin(elapsed * 1.5) * 6 + targetX * 10;
+            cyanLight.position.y = Math.cos(elapsed * 1.5) * 6 - targetY * 10;
+            magentaLight.position.x = -Math.sin(elapsed * 1.5) * 6 - targetX * 10;
+            magentaLight.position.y = -Math.cos(elapsed * 1.5) * 6 + targetY * 10;
+
             renderer.render(scene, camera);
         }
         animate();
