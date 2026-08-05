@@ -50,7 +50,7 @@
             pointer-events: auto;
         }
 
-        /* --- HYPER-RESPONSIVE DYNAMIC ISLAND --- */
+        /* --- DYNAMIC ISLAND HEADER --- */
         .island-wrapper {
             position: fixed;
             top: 1.5rem;
@@ -197,6 +197,13 @@
             line-height: 1.6;
         }
 
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
         .btn-fluid {
             position: relative;
             display: inline-block;
@@ -218,6 +225,13 @@
             box-shadow: 0 0 35px rgba(255, 0, 128, 0.6);
         }
 
+        .btn-fluid.glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
         .btn-fluid:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 0 60px rgba(0, 240, 255, 0.9);
@@ -225,6 +239,12 @@
 
         .btn-fluid.pink-btn:hover {
             box-shadow: 0 0 60px rgba(255, 0, 128, 0.9);
+        }
+
+        .btn-fluid.glass-btn:hover {
+            border-color: #00f0ff;
+            color: #00f0ff;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
         }
 
         /* --- EXPANDABLE GLASS BUYER'S GUIDE SECTION --- */
@@ -420,7 +440,60 @@
         textarea { grid-column: span 2; height: 130px; resize: none; }
         .submit-btn { grid-column: span 2; }
 
-        footer { text-align: center; padding: 3rem 0; color: #71717a; font-size: 0.9rem; }
+        /* --- FOOTER STYLING --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .footer-brand p {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .footer-contact h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-email {
+            color: #00f0ff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: #ff0080;
+            text-shadow: 0 0 12px rgba(255, 0, 128, 0.6);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #71717a;
+            font-size: 0.85rem;
+        }
 
         @keyframes floatIsland { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         @keyframes pulseGlow { 0% { filter: drop-shadow(0 0 8px #00f0ff); } 100% { filter: drop-shadow(0 0 18px #ff0080); } }
@@ -429,6 +502,7 @@
             h1 { font-size: 2.8rem; }
             .form-grid { grid-template-columns: 1fr; }
             textarea, .submit-btn { grid-column: span 1; }
+            .footer-content { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -460,7 +534,10 @@
             <section class="hero-card">
                 <h1>Cheap prices with good laptops.</h1>
                 <p class="subtitle">Fair deals on quality pre-owned MacBooks and PCs. Fully refurbished, stress-tested, and ready for work.</p>
-                <a href="./macbooks.html" class="btn-fluid">Explore Stock</a>
+                <div class="hero-buttons">
+                    <a href="./macbooks.html" class="btn-fluid">Explore Stock</a>
+                    <a href="mailto:rebyteofficial@gmail.com?subject=Inquiry%20from%20ReByte%20Website" class="btn-fluid glass-btn">Email Us Directly</a>
+                </div>
             </section>
 
             <section class="hero-card pink-accent">
@@ -503,6 +580,7 @@
                 </div>
 
                 <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
+                    <input type="hidden" name="_replyto" value="rebyteofficial@gmail.com">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
                     <select name="request_type" required>
@@ -518,7 +596,23 @@
             </div>
         </section>
 
-        <footer>&copy; 2026 ReByte. Clean, simple, affordable tech.</footer>
+        <!-- INTEGRATED FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ReByte</h3>
+                    <p>Giving Apples a Second Chance.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Direct Contact & Support</h4>
+                    <p>Email: <a href="mailto:rebyteofficial@gmail.com?subject=ReByte%20Website%20Inquiry" class="contact-email">rebyteofficial@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 ReByte. Clean, simple, affordable tech.
+            </div>
+        </footer>
     </div>
 
     <!-- EXPANDABLE FULLSCREEN MODAL -->
