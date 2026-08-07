@@ -8,6 +8,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     
     <title>ReByte | Premium Tech & Refurbished Laptops</title>
+    <meta name="description" content="ReByte - Premium refurbished laptops and tech. Buy quality pre-owned MacBooks and PCs or trade in your old devices for cash.">
+    <meta property="og:title" content="ReByte | Premium Tech & Refurbished Laptops">
+    <meta property="og:description" content="Fair deals on quality pre-owned MacBooks and PCs. Fully refurbished, stress-tested, and ready for work.">
+    <meta property="og:type" content="website">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
@@ -147,28 +152,59 @@
         }
 
         .hero-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
             backdrop-filter: blur(90px) saturate(220%);
             -webkit-backdrop-filter: blur(90px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 44px;
             padding: 4.5rem 2.5rem;
             text-align: center;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.85), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.4),
-                        0 0 50px rgba(0, 240, 255, 0.12);
+                        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                        0 0 50px rgba(0, 240, 255, 0.12),
+                        inset 0 -2px 8px rgba(0, 240, 255, 0.05);
             position: relative;
             overflow: hidden;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease;
         }
 
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.03) 0%, transparent 70%);
+            animation: liquidShift 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero-card.pink-accent::before {
+            background: radial-gradient(circle, rgba(255, 0, 128, 0.03) 0%, transparent 70%);
+        }
+
+        @keyframes liquidShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(5%, -3%) rotate(1deg); }
+            66% { transform: translate(-3%, 5%) rotate(-1deg); }
+        }
+
         .hero-card:hover {
             transform: translateY(-6px) scale(1.005);
             border-color: rgba(0, 240, 255, 0.5);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.85), 
+                        inset 0 3px 6px rgba(255, 255, 255, 0.6),
+                        0 0 70px rgba(0, 240, 255, 0.2),
+                        inset 0 -2px 8px rgba(0, 240, 255, 0.08);
         }
 
         .hero-card.pink-accent:hover {
             border-color: rgba(255, 0, 128, 0.5);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.85), 
+                        inset 0 3px 6px rgba(255, 255, 255, 0.6),
+                        0 0 70px rgba(255, 0, 128, 0.2),
+                        inset 0 -2px 8px rgba(255, 0, 128, 0.08);
         }
 
         h1 {
@@ -246,9 +282,9 @@
         }
 
         .btn-fluid.glass-btn {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             backdrop-filter: blur(20px);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
@@ -266,7 +302,7 @@
             border-color: #00f0ff;
             color: #00f0ff;
             box-shadow: 0 0 35px rgba(0, 240, 255, 0.5);
-            background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.08);
         }
 
         .btn-fluid:active {
@@ -299,16 +335,35 @@
         }
 
         .guide-card {
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 36px;
             padding: 2.5rem 2rem;
             backdrop-filter: blur(80px) saturate(220%);
             -webkit-backdrop-filter: blur(80px) saturate(220%);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 3px rgba(255, 255, 255, 0.35);
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+        }
+
+        .guide-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 38px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), transparent, rgba(255, 0, 128, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .guide-card:hover::after {
+            opacity: 1;
         }
 
         .guide-card:hover {
@@ -361,15 +416,15 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: 44px;
             padding: 3.5rem 3rem;
             max-width: 750px;
             width: 100%;
             backdrop-filter: blur(90px) saturate(240%);
             -webkit-backdrop-filter: blur(90px) saturate(240%);
-            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 80px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 0 80px rgba(0, 240, 255, 0.3);
             position: relative;
             transform: scale(0.8);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -429,13 +484,13 @@
 
         /* --- FORM SECTION --- */
         .sell-section {
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 44px;
             padding: 4rem 2.5rem;
             backdrop-filter: blur(80px) saturate(220%);
             -webkit-backdrop-filter: blur(80px) saturate(220%);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.85), inset 0 1px 3px rgba(255, 255, 255, 0.35);
         }
 
         .form-grid {
@@ -447,8 +502,8 @@
         input, select, textarea {
             width: 100%;
             padding: 1.15rem;
-            background: rgba(255, 255, 255, 0.025);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 22px;
             color: #ffffff;
             font-size: 1rem;
@@ -516,14 +571,53 @@
             font-size: 0.85rem;
         }
 
+        #backToTop {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
         @keyframes floatIsland { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         @keyframes pulseGlow { 0% { filter: drop-shadow(0 0 8px #00f0ff); } 100% { filter: drop-shadow(0 0 18px #ff0080); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
             .form-grid { grid-template-columns: 1fr; }
             textarea, .submit-btn { grid-column: span 1; }
             .footer-content { flex-direction: column; text-align: center; }
+            .modal-content { padding: 2.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            header.dynamic-island {
+                padding: 0.7rem 1.5rem;
+                width: 95%;
+                border-radius: 80px;
+            }
+            .logo { font-size: 1.1rem; }
+            .logo svg { width: 20px; height: 20px; }
+            h1 { font-size: 2.2rem; }
+            .hero-card { padding: 2.5rem 1.5rem; }
         }
     </style>
 </head>
@@ -600,7 +694,7 @@
                     <p style="color: #a1a1aa; margin-top: 0.5rem;">Sell your device or register interest for incoming stock.</p>
                 </div>
 
-                <form class="form-grid" action="https://formspree.io/f/mrendqvr" method="POST">
+                <form class="form-grid" id="tradeForm" action="https://formspree.io/f/mrendqvr" method="POST">
                     <input type="hidden" name="_replyto" value="rebyteofficial@gmail.com">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="text" name="contact" placeholder="Phone Number OR Email Address" required>
@@ -617,7 +711,7 @@
             </div>
         </section>
 
-        <!-- INTEGRATED FOOTER (Target text removed) -->
+        <!-- INTEGRATED FOOTER -->
         <footer>
             <div class="footer-content">
                 <div class="footer-brand">
@@ -635,11 +729,14 @@
         </footer>
     </div>
 
+    <!-- BACK TO TOP BUTTON -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
     <!-- EXPANDABLE FULLSCREEN MODAL -->
-    <div class="modal-overlay" id="guideModal" onclick="closeModalOnOuter(event)">
+    <div class="modal-overlay" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModalOnOuter(event)">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">✕</button>
-            <div class="modal-body" id="modalBody"></div>
+            <button class="close-btn" onclick="closeModal()" aria-label="Close modal">✕</button>
+            <div class="modal-body" id="modalBody" role="document"></div>
         </div>
     </div>
 
@@ -648,7 +745,7 @@
         const modalData = {
             student: `
                 <div class="guide-icon">🎓</div>
-                <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 1rem;">College Students Guide</h2>
+                <h2 id="modalTitle" style="font-size: 2.2rem; color: #fff; margin-bottom: 1rem;">College Students Guide</h2>
                 <p style="color: #a1a1aa; line-height: 1.6;">When studying, you need maximum battery endurance, portable weight, and zero performance slowdowns when jumping between research papers, documents, and spreadsheets.</p>
                 <ul>
                     <li><strong>Recommended Memory:</strong> 8GB to 16GB RAM for seamless multitasking.</li>
@@ -658,7 +755,7 @@
             `,
             senior: `
                 <div class="guide-icon">👓</div>
-                <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 1rem;">Seniors & Everyday Guide</h2>
+                <h2 id="modalTitle" style="font-size: 2.2rem; color: #fff; margin-bottom: 1rem;">Seniors & Everyday Guide</h2>
                 <p style="color: #a1a1aa; line-height: 1.6;">For casual everyday use, readability and ease-of-use take priority. You want a screen that doesn't strain your eyes and an operating system free from bloated setup menus.</p>
                 <ul>
                     <li><strong>Display Clarity:</strong> High-definition Retina or FHD anti-glare screen.</li>
@@ -671,15 +768,24 @@
         function openModal(type) {
             document.getElementById('modalBody').innerHTML = modalData[type];
             document.getElementById('guideModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('guideModal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         function closeModalOnOuter(e) {
             if (e.target.id === 'guideModal') closeModal();
         }
+
+        // Keyboard support for modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('guideModal').classList.contains('active')) {
+                closeModal();
+            }
+        });
 
         // --- DYNAMIC ISLAND SCROLL LOGIC ---
         const island = document.getElementById('dynamic-island');
@@ -688,10 +794,74 @@
             island.classList.add('scrolling');
             if (stopScrollTimer !== null) clearTimeout(stopScrollTimer);
             stopScrollTimer = setTimeout(() => { island.classList.remove('scrolling'); }, 150);
+            
+            // Back to top button visibility
+            const backBtn = document.getElementById('backToTop');
+            if (backBtn) {
+                backBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+            }
         }, { passive: true });
+
+        // --- SMOOTH SCROLL FOR ANCHOR LINKS ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- FORM VALIDATION ---
+        const form = document.getElementById('tradeForm');
+        const submitBtn = form.querySelector('.submit-btn');
+        
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ff0080';
+                    field.style.boxShadow = '0 0 15px rgba(255, 0, 128, 0.5)';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    field.style.boxShadow = 'none';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                form.querySelector('[required]:invalid')?.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            } else {
+                // Loading state
+                submitBtn.innerHTML = 'Sending... <span style="display:inline-block;animation:spin 1s linear infinite;">↻</span>';
+                submitBtn.style.pointerEvents = 'none';
+                submitBtn.style.opacity = '0.7';
+            }
+        });
 
         // --- INTERACTIVE THREE.JS ENGINE WITH MOUSE TRACKING ---
         const canvas = document.getElementById('webgl-canvas');
+        
+        // WebGL fallback check
+        if (!window.WebGLRenderingContext) {
+            canvas.style.display = 'none';
+            document.body.style.background = 'linear-gradient(135deg, #020205 0%, #0a0a1a 100%)';
+            console.warn('WebGL not supported - falling back to static background');
+        }
+        
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -725,6 +895,7 @@
         let isDragging = false;
         let previousMouseX = 0, previousMouseY = 0;
         let dragVelocityX = 0, dragVelocityY = 0;
+        let animationId;
 
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX - window.innerWidth / 2) * 0.0015;
@@ -750,14 +921,12 @@
 
         const clock = new THREE.Clock();
         function animate() {
-            requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(animate);
             const elapsed = clock.getElapsedTime();
 
-            // Smooth Interpolation towards mouse
             targetX += (mouseX - targetX) * 0.05;
             targetY += (mouseY - targetY) * 0.05;
 
-            // Apply inertia if dragged
             if (!isDragging) {
                 dragVelocityX *= 0.95;
                 dragVelocityY *= 0.95;
@@ -779,6 +948,15 @@
             renderer.render(scene, camera);
         }
         animate();
+
+        // Pause animation when page not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                animate();
+            }
+        });
 
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
