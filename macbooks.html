@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mac & PC Stock | ReByte Inventory</title>
+    <meta name="description" content="Browse our refurbished laptop stock - MacBook Pro, ASUS ZenBook Pro, and more. Quality pre-owned laptops at fair prices.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -139,9 +140,24 @@
             height: 220px;
             border-radius: 24px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
+            background: linear-gradient(110deg, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 70%);
+            background-size: 200% 100%;
             border: 1px solid rgba(255, 255, 255, 0.15);
             margin-bottom: 1.5rem;
+        }
+
+        .image-slider.loaded-bg {
+            animation: none;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .image-slider:not(.loaded-bg) {
+            animation: shimmer 1.5s infinite;
         }
 
         .image-slider img {
@@ -149,11 +165,22 @@
             height: 100%;
             object-fit: cover;
             display: none;
+            opacity: 0;
             transition: opacity 0.4s ease;
         }
 
         .image-slider img.active {
             display: block;
+            opacity: 1;
+        }
+
+        .image-slider img.loaded {
+            opacity: 1;
+        }
+
+        .image-slider:focus {
+            outline: 2px solid #00f0ff;
+            outline-offset: 2px;
         }
 
         .slider-btn {
@@ -217,6 +244,12 @@
             color: #ff0080;
         }
 
+        .status-pill.in-stock {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+        }
+
         .card-title { font-size: 1.8rem; font-weight: 800; margin: 1rem 0 0.5rem; }
         .card-desc { color: #a1a1aa; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; }
 
@@ -224,6 +257,30 @@
         .spec-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.35rem 0.8rem; border-radius: 12px; font-size: 0.82rem; }
 
         .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+
+        .price-display {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .original-price {
+            color: #a1a1aa;
+            text-decoration: line-through;
+            font-size: 0.85rem;
+        }
+
+        .current-price {
+            color: #00f0ff;
+            font-weight: 900;
+            font-size: 1.4rem;
+        }
+
+        .savings-badge {
+            color: #ff0080;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
 
         /* --- STYLISH BUTTON --- */
         .btn-fluid {
@@ -237,10 +294,89 @@
             text-decoration: none;
             box-shadow: 0 0 25px rgba(255, 0, 128, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
         .btn-fluid:hover { transform: scale(1.08); box-shadow: 0 0 45px rgba(255, 0, 128, 0.9); }
         .btn-fluid:active { transform: scale(0.96); }
+
+        .btn-fluid.green-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-fluid.green-btn:hover {
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.9);
+        }
+
+        /* --- NOTIFY MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(2, 2, 8, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 44px;
+            padding: 3rem 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(90px) saturate(240%);
+            -webkit-backdrop-filter: blur(90px) saturate(240%);
+            box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 0 80px rgba(0, 240, 255, 0.3);
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.8rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ff0080;
+            border-color: #ff0080;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 20px #ff0080;
+        }
 
         /* --- FOOTER STYLING --- */
         footer {
@@ -291,8 +427,53 @@
             font-size: 0.85rem;
         }
 
+        #backToTop {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
             .footer-content { flex-direction: column; text-align: center; }
+            .products-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .image-slider { height: 200px; }
+            .card-title { font-size: 1.5rem; }
+            .page-header h1 { font-size: 2.5rem; }
+            .spec-list { gap: 0.3rem; }
+            .spec-tag { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
+            .modal-content { padding: 2.5rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .image-slider { height: 180px; }
+            .glass-card { padding: 1.5rem; }
+            .slider-btn { width: 30px; height: 30px; }
+            header.dynamic-island {
+                padding: 0.7rem 1.5rem;
+                width: 95%;
+                border-radius: 80px;
+            }
+            .logo { font-size: 1.1rem; }
+            .logo svg { width: 20px; height: 20px; }
         }
     </style>
 </head>
@@ -329,17 +510,17 @@
             <div class="glass-card">
                 <div>
                     <!-- 6-IMAGE GALLERY SLIDER -->
-                    <div class="image-slider" id="slider-macbook">
-                        <button class="slider-btn prev" onclick="changeImage('slider-macbook', -1)">❮</button>
-                        <button class="slider-btn next" onclick="changeImage('slider-macbook', 1)">❯</button>
+                    <div class="image-slider" id="slider-macbook" tabindex="0">
+                        <button class="slider-btn prev" onclick="changeImage('slider-macbook', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="changeImage('slider-macbook', 1)" aria-label="Next image">❯</button>
                         <span class="image-indicator">1 / 6</span>
                         
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="MacBook Front">
-                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="MacBook Side Profile">
-                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="MacBook Keyboard View">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="MacBook Display Close-up">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="MacBook Lid Closed">
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="MacBook Ports & Edges">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="MacBook Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="MacBook Side Profile" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="MacBook Keyboard View" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="MacBook Display Close-up" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="MacBook Lid Closed" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="MacBook Ports & Edges" loading="lazy">
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -358,51 +539,61 @@
                 </div>
 
                 <div class="price-row">
-                    <span style="color: #a1a1aa; font-weight: bold;">$59.99 Shipping</span>
-                    <a href="./index.html#trade-section" class="btn-fluid">Notify Me</a>
+                    <div class="price-display">
+                        <span class="original-price">$1,299 new</span>
+                        <span class="current-price">$499 AUD</span>
+                        <span class="savings-badge">Save 60%+</span>
+                    </div>
+                    <button class="btn-fluid" onclick="openNotifyModal('MacBook Pro 13\"')">Notify Me</button>
                 </div>
             </div>
 
-            <!-- Dell Latitude Card -->
+            <!-- ASUS ZenBook Pro Card (Replaced Dell Latitude) -->
             <div class="glass-card">
                 <div>
                     <!-- 6-IMAGE GALLERY SLIDER -->
-                    <div class="image-slider" id="slider-dell">
-                        <button class="slider-btn prev" onclick="changeImage('slider-dell', -1)">❮</button>
-                        <button class="slider-btn next" onclick="changeImage('slider-dell', 1)">❯</button>
+                    <div class="image-slider" id="slider-asus" tabindex="0">
+                        <button class="slider-btn prev" onclick="changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
                         <span class="image-indicator">1 / 6</span>
                         
-                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" class="active" alt="Dell PC Front">
-                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="Dell Keyboard View">
-                        <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="Dell Display">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="Dell Ports">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="Dell Lid">
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="Dell Angle View">
+                        <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=600&auto=format&fit=crop" class="active" alt="ASUS ZenBook Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" alt="ASUS ZenBook Angle" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="ASUS Keyboard View" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="ASUS Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="ASUS Ports" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="ASUS Lid View" loading="lazy">
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill out-stock">Out of Stock</span>
+                        <span class="status-pill in-stock">In Stock</span>
                         <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
                     </div>
 
-                    <h3 class="card-title">Dell Latitude PC</h3>
-                    <p class="card-desc">Durable business laptop designed for high productivity, schoolwork, and long hours.</p>
+                    <h3 class="card-title">ASUS ZenBook Pro</h3>
+                    <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work and gaming.</p>
                     
                     <div class="spec-list">
-                        <span class="spec-tag">Intel i5 8th Gen</span>
+                        <span class="spec-tag">Intel i7-4720HQ</span>
                         <span class="spec-tag">16GB RAM</span>
-                        <span class="spec-tag">512GB NVMe</span>
+                        <span class="spec-tag">GTX 960M</span>
+                        <span class="spec-tag">1.1TB SSD+HDD</span>
+                        <span class="spec-tag">15.6" 4K Touch</span>
                     </div>
                 </div>
 
                 <div class="price-row">
-                    <span style="color: #a1a1aa; font-weight: bold;">$59.99 Shipping</span>
-                    <a href="./index.html#trade-section" class="btn-fluid">Notify Me</a>
+                    <div class="price-display">
+                        <span class="original-price">$1,799 new</span>
+                        <span class="current-price">$549 AUD</span>
+                        <span class="savings-badge">Save 69%+</span>
+                    </div>
+                    <a href="mailto:rebyteofficial@gmail.com?subject=ASUS%20ZenBook%20Pro%20Purchase%20Inquiry" class="btn-fluid green-btn">Buy Now</a>
                 </div>
             </div>
         </div>
 
-        <!-- INTEGRATED FOOTER (Target text removed) -->
+        <!-- INTEGRATED FOOTER -->
         <footer>
             <div class="footer-content">
                 <div class="footer-brand">
@@ -420,8 +611,25 @@
         </footer>
     </div>
 
+    <!-- BACK TO TOP BUTTON -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+    <!-- NOTIFY ME MODAL -->
+    <div class="modal-overlay" id="notifyModal" role="dialog" aria-modal="true" aria-labelledby="notifyTitle">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeNotifyModal()" aria-label="Close modal">✕</button>
+            <h2 id="notifyTitle" style="margin-bottom:0.5rem; font-size:1.8rem;">Get Stock Alert</h2>
+            <p style="color:#a1a1aa; margin-bottom:1.5rem;" id="notifyProductName">We'll email you when this item is back in stock.</p>
+            <input type="email" id="notifyEmail" placeholder="your@email.com" style="margin-bottom:1rem; width:100%;">
+            <button class="btn-fluid" onclick="submitNotify()" style="width:100%;">Notify Me</button>
+        </div>
+    </div>
+
     <script>
         // --- 6-IMAGE SLIDER LOGIC ---
+        const sliderAutoPlay = {};
+        const autoPlayInterval = 5000;
+
         function changeImage(sliderId, direction) {
             const slider = document.getElementById(sliderId);
             const images = slider.querySelectorAll('img');
@@ -438,6 +646,133 @@
             indicator.textContent = `${newIndex + 1} / ${images.length}`;
         }
 
+        function startAutoPlay(sliderId) {
+            stopAutoPlay(sliderId);
+            sliderAutoPlay[sliderId] = setInterval(() => {
+                changeImage(sliderId, 1);
+            }, autoPlayInterval);
+        }
+
+        function stopAutoPlay(sliderId) {
+            if (sliderAutoPlay[sliderId]) {
+                clearInterval(sliderAutoPlay[sliderId]);
+                delete sliderAutoPlay[sliderId];
+            }
+        }
+
+        function addTouchSupport(sliderId) {
+            const slider = document.getElementById(sliderId);
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoPlay(sliderId);
+            }, {passive: true});
+            
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > 50) {
+                    changeImage(sliderId, diff > 0 ? 1 : -1);
+                }
+                startAutoPlay(sliderId);
+            }, {passive: true});
+        }
+
+        // Initialize all sliders
+        document.addEventListener('DOMContentLoaded', () => {
+            const sliders = document.querySelectorAll('.image-slider');
+            
+            sliders.forEach(slider => {
+                const sliderId = slider.id;
+                
+                // Touch support
+                addTouchSupport(sliderId);
+                
+                // Keyboard navigation
+                slider.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        changeImage(sliderId, -1);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        changeImage(sliderId, 1);
+                    }
+                });
+                
+                // Auto-play with pause on hover
+                startAutoPlay(sliderId);
+                
+                slider.addEventListener('mouseenter', () => stopAutoPlay(sliderId));
+                slider.addEventListener('mouseleave', () => startAutoPlay(sliderId));
+                
+                // Image load detection
+                const images = slider.querySelectorAll('img');
+                let loadedCount = 0;
+                
+                images.forEach(img => {
+                    if (img.complete) {
+                        img.classList.add('loaded');
+                        loadedCount++;
+                    } else {
+                        img.addEventListener('load', () => {
+                            img.classList.add('loaded');
+                            loadedCount++;
+                            if (loadedCount === images.length) {
+                                slider.classList.add('loaded-bg');
+                            }
+                        });
+                    }
+                });
+                
+                if (loadedCount === images.length) {
+                    slider.classList.add('loaded-bg');
+                }
+            });
+        });
+
+        // --- NOTIFY MODAL ---
+        function openNotifyModal(productName) {
+            document.getElementById('notifyProductName').textContent = `We'll email you when the ${productName} is back in stock.`;
+            document.getElementById('notifyModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('notifyEmail').focus();
+        }
+
+        function closeNotifyModal() {
+            document.getElementById('notifyModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function submitNotify() {
+            const email = document.getElementById('notifyEmail').value;
+            if (email && email.includes('@')) {
+                // In production, send this to your backend
+                alert('Thanks! We\'ll notify you at ' + email + ' when stock arrives.');
+                closeNotifyModal();
+                document.getElementById('notifyEmail').value = '';
+            } else {
+                document.getElementById('notifyEmail').style.borderColor = '#ff0080';
+                document.getElementById('notifyEmail').style.boxShadow = '0 0 15px rgba(255, 0, 128, 0.5)';
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('notifyModal').classList.contains('active')) {
+                    closeNotifyModal();
+                }
+            }
+        });
+
+        // Close modal on overlay click
+        document.getElementById('notifyModal').addEventListener('click', function(e) {
+            if (e.target === this) closeNotifyModal();
+        });
+
         // --- DYNAMIC ISLAND scroll behavior ---
         const island = document.getElementById('dynamic-island');
         let stopScrollTimer = null;
@@ -445,10 +780,22 @@
             island.classList.add('scrolling');
             if (stopScrollTimer !== null) clearTimeout(stopScrollTimer);
             stopScrollTimer = setTimeout(() => { island.classList.remove('scrolling'); }, 150);
+            
+            // Back to top button
+            const backBtn = document.getElementById('backToTop');
+            if (backBtn) {
+                backBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+            }
         }, { passive: true });
 
-        // --- INTERACTIVE THREE.JS BACKGROUND ---
+        // --- INTERACTIVE THREE.JS BACKGROUND (Torus - keeps original look) ---
         const canvas = document.getElementById('webgl-canvas');
+        
+        if (!window.WebGLRenderingContext) {
+            canvas.style.display = 'none';
+            document.body.style.background = 'linear-gradient(135deg, #020205 0%, #0a0a1a 100%)';
+        }
+        
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -460,24 +807,43 @@
         const group = new THREE.Group();
         scene.add(group);
 
+        // Main torus ring (turquoise)
         const geo = new THREE.TorusGeometry(3, 0.03, 16, 100);
         const mat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
         const ring = new THREE.Mesh(geo, mat);
         group.add(ring);
 
+        // Inner accent ring (pinkish red)
+        const innerGeo = new THREE.TorusGeometry(1.8, 0.02, 16, 80);
+        const innerMat = new THREE.MeshBasicMaterial({ color: 0xff0080, wireframe: true });
+        const innerRing = new THREE.Mesh(innerGeo, innerMat);
+        group.add(innerRing);
+
         let mouseX = 0, mouseY = 0;
+        let animationId;
+
         window.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
             mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
         });
 
         function animate() {
-            requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(animate);
             group.rotation.x += 0.005 + mouseY * 0.05;
             group.rotation.y += 0.008 + mouseX * 0.05;
+            innerRing.rotation.z += 0.003;
             renderer.render(scene, camera);
         }
         animate();
+
+        // Pause when not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                animate();
+            }
+        });
 
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
