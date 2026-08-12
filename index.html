@@ -806,7 +806,7 @@
                 <p class="subtitle">Fair deals on quality pre-owned laptops. Fully refurbished, stress-tested, and ready for work.</p>
                 <div class="hero-buttons">
                     <a href="./macbooks.html" class="btn-fluid">Explore Stock</a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=Inquiry%20from%20ReByte%20Website" target="_blank" class="btn-fluid glass-btn">Email Us Directly</a>
+                    <button onclick="openBuyOptions('General Inquiry', 'I would like to inquire about ReByte products.')" class="btn-fluid glass-btn" style="border:1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); color:#ffffff; backdrop-filter: blur(20px); font-size:1.05rem; font-weight:800; padding:1.15rem 3rem; border-radius:100px; cursor:pointer;">Contact Us</button>
                 </div>
             </section>
 
@@ -895,7 +895,88 @@
         </div>
     </div>
 
+    <!-- BUY OPTIONS MODAL -->
+    <div class="modal-overlay" id="buyOptionsModal" role="dialog" aria-modal="true">
+        <div class="modal-content" style="max-width: 550px;">
+            <button class="close-btn" onclick="closeBuyOptions()" aria-label="Close modal">✕</button>
+            <div style="text-align: center;">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Buy Options</h2>
+                <p style="color: #a1a1aa; margin-bottom: 2rem;" id="buyOptionsProductName">Choose how you'd like to purchase:</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <button onclick="buyViaEBay()" class="buy-option-btn" style="display:flex; align-items:center; gap:1rem; padding:1.2rem 1.5rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.25); border-radius:20px; color:#fff; cursor:pointer; transition:all 0.3s ease; width:100%;">
+                        <span style="font-size:2rem;">🛒</span>
+                        <span style="text-align:left;">
+                            <span style="display:block; font-weight:800; font-size:1.1rem;">Buy on eBay</span>
+                            <span style="font-size:0.85rem; color:#a1a1aa;">Secure checkout with buyer protection</span>
+                        </span>
+                        <span style="margin-left:auto; color:#00f0ff;">→</span>
+                    </button>
+                    
+                    <button onclick="buyViaFacebook()" class="buy-option-btn" style="display:flex; align-items:center; gap:1rem; padding:1.2rem 1.5rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.25); border-radius:20px; color:#fff; cursor:pointer; transition:all 0.3s ease; width:100%;">
+                        <span style="font-size:2rem;">📘</span>
+                        <span style="text-align:left;">
+                            <span style="display:block; font-weight:800; font-size:1.1rem;">Buy on Facebook</span>
+                            <span style="font-size:0.85rem; color:#a1a1aa;">Message us directly on Marketplace</span>
+                        </span>
+                        <span style="margin-left:auto; color:#00f0ff;">→</span>
+                    </button>
+                    
+                    <button onclick="buyViaEmail()" class="buy-option-btn" style="display:flex; align-items:center; gap:1rem; padding:1.2rem 1.5rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.25); border-radius:20px; color:#fff; cursor:pointer; transition:all 0.3s ease; width:100%;">
+                        <span style="font-size:2rem;">✉️</span>
+                        <span style="text-align:left;">
+                            <span style="display:block; font-weight:800; font-size:1.1rem;">Email Us</span>
+                            <span style="font-size:0.85rem; color:#a1a1aa;">Contact us via Gmail for direct purchase</span>
+                        </span>
+                        <span style="margin-left:auto; color:#00f0ff;">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .buy-option-btn:hover {
+            border-color: #00f0ff !important;
+            background: rgba(0, 240, 255, 0.08) !important;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3) !important;
+            transform: translateY(-3px) !important;
+        }
+    </style>
+
     <script>
+        // --- BUY OPTIONS ---
+        let currentProductName = '';
+        let currentProductEmailBody = '';
+
+        function openBuyOptions(productName, emailBody) {
+            currentProductName = productName;
+            currentProductEmailBody = emailBody;
+            document.getElementById('buyOptionsProductName').textContent = `Choose how you'd like to purchase the ${productName}:`;
+            document.getElementById('buyOptionsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBuyOptions() {
+            document.getElementById('buyOptionsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function buyViaEBay() {
+            window.open('https://www.ebay.com.au', '_blank');
+            closeBuyOptions();
+        }
+
+        function buyViaFacebook() {
+            window.open('https://www.facebook.com/marketplace', '_blank');
+            closeBuyOptions();
+        }
+
+        function buyViaEmail() {
+            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=${encodeURIComponent(currentProductName + ' Purchase Inquiry')}&body=${encodeURIComponent(currentProductEmailBody)}`, '_blank');
+            closeBuyOptions();
+        }
+
         // --- 3D TILT EFFECT ---
         function initTilt() {
             document.querySelectorAll('.tilt-card').forEach(card => {
@@ -962,9 +1043,14 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('guideModal').classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (document.getElementById('guideModal').classList.contains('active')) closeModal();
+                if (document.getElementById('buyOptionsModal').classList.contains('active')) closeBuyOptions();
             }
+        });
+
+        document.getElementById('buyOptionsModal').addEventListener('click', function(e) {
+            if (e.target === this) closeBuyOptions();
         });
 
         // --- DYNAMIC ISLAND SCROLL LOGIC ---
