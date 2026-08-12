@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mac & PC Stock | ReByte Inventory</title>
-    <meta name="description" content="Browse our refurbished laptop stock - MacBook Pro, ASUS ZenBook Pro, and more. Quality pre-owned laptops at fair prices.">
+    <title>Laptop Stock | ReByte Inventory</title>
+    <meta name="description" content="Browse our refurbished laptop stock - Dell XPS 13, HP EliteBook 840 G6, ASUS ZenBook Pro. Quality pre-owned laptops at fair prices.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -181,6 +181,7 @@
             overflow: hidden;
             transform-style: preserve-3d;
             perspective: 1000px;
+            cursor: pointer;
         }
 
         .glass-card::before {
@@ -414,16 +415,16 @@
 
         .btn-fluid.green-btn:hover { box-shadow: 0 0 45px rgba(0, 240, 255, 0.9); }
 
-        /* --- NOTIFY MODAL --- */
+        /* --- PRODUCT DETAIL MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(2, 2, 8, 0.9);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            background: rgba(2, 2, 8, 0.92);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -444,8 +445,10 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 44px;
             padding: 3rem 2.5rem;
-            max-width: 500px;
+            max-width: 650px;
             width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
             backdrop-filter: blur(120px) saturate(300%);
             -webkit-backdrop-filter: blur(120px) saturate(300%);
             box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9), 
@@ -497,6 +500,53 @@
             border-color: #ff0080;
             transform: rotate(90deg) scale(1.1);
             box-shadow: 0 0 25px #ff0080;
+        }
+
+        /* Detail Modal Specs Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .specs-table td {
+            padding: 0.9rem 0.5rem;
+            font-size: 1rem;
+        }
+
+        .specs-table td:first-child {
+            color: #a1a1aa;
+            font-weight: 600;
+            width: 35%;
+        }
+
+        .specs-table td:last-child {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-icon {
+            font-size: 2.5rem;
+        }
+
+        .detail-title {
+            font-size: 1.8rem;
+            font-weight: 900;
         }
 
         /* --- FOOTER --- */
@@ -583,7 +633,7 @@
             .page-header h1 { font-size: 2.5rem; }
             .spec-list { gap: 0.3rem; }
             .spec-tag { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
-            .modal-content { padding: 2.5rem 1.5rem; }
+            .modal-content { padding: 2rem 1.5rem; }
         }
 
         @media (max-width: 480px) {
@@ -617,7 +667,7 @@
                 </a>
                 <nav>
                     <a href="./index.html">Home</a>
-                    <a href="./macbooks.html" class="active">Mac & PC Stock</a>
+                    <a href="./macbooks.html" class="active">Laptop Stock</a>
                     <a href="./index.html#trade-section">Trade-In</a>
                 </nav>
             </header>
@@ -625,64 +675,106 @@
 
         <div class="page-header">
             <h1>Refurbished Laptops</h1>
-            <p style="color: #a1a1aa; margin-top: 0.5rem;">Explore our pre-owned stock with full 6-angle image galleries.</p>
+            <p style="color: #a1a1aa; margin-top: 0.5rem;">Click any product to view full specifications. All laptops come with charger.</p>
         </div>
 
         <div class="products-grid">
-            <!-- MacBook Pro Card -->
-            <div class="glass-card tilt-card">
+            <!-- Dell XPS 13 Card -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('dell-xps')">
                 <div>
-                    <div class="image-slider" id="slider-macbook" tabindex="0">
-                        <button class="slider-btn prev" onclick="changeImage('slider-macbook', -1)" aria-label="Previous image">❮</button>
-                        <button class="slider-btn next" onclick="changeImage('slider-macbook', 1)" aria-label="Next image">❯</button>
+                    <div class="image-slider" id="slider-dell" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-dell', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-dell', 1)" aria-label="Next image">❯</button>
                         <span class="image-indicator">1 / 6</span>
                         
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="MacBook Front" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="MacBook Side Profile" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="MacBook Keyboard View" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="MacBook Display Close-up" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="MacBook Lid Closed" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="MacBook Ports & Edges" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=600&auto=format&fit=crop" class="active" alt="Dell XPS Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" alt="Dell XPS Angle" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="Dell Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="Dell Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="Dell Ports" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="Dell Lid" loading="lazy">
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill out-stock">Out of Stock</span>
+                        <span class="status-pill in-stock">In Stock</span>
                         <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
                     </div>
 
-                    <h3 class="card-title">MacBook Pro 13"</h3>
-                    <p class="card-desc">Sleek aluminum body, powerful Intel Core i5 processor, and vibrant Retina display.</p>
+                    <h3 class="card-title">Dell XPS 13 9343</h3>
+                    <p class="card-desc">Ultra-slim InfinityEdge display, premium carbon fiber build, perfect for professionals on the go.</p>
                     
                     <div class="spec-list">
-                        <span class="spec-tag">Intel i5</span>
+                        <span class="spec-tag">i5-5200U</span>
                         <span class="spec-tag">8GB RAM</span>
                         <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">13.3" FHD</span>
                     </div>
                 </div>
 
                 <div class="price-row">
                     <div class="price-display">
-                        <span class="current-price">$499 AUD</span>
+                        <span class="current-price">$399 AUD</span>
                         <span class="shipping-text">+ $59.99 Shipping</span>
                     </div>
-                    <button class="btn-fluid" onclick="openNotifyModal('MacBook Pro 13\u0022')">Notify Me</button>
+                    <span class="btn-fluid green-btn" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=Dell%20XPS%2013%20Purchase%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20buying%20the%20Dell%20XPS%2013%209343.', '_blank')">Buy Now</span>
+                </div>
+            </div>
+
+            <!-- HP EliteBook 840 G6 Card -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('hp-elitebook')">
+                <div>
+                    <div class="image-slider" id="slider-hp" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP EliteBook Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP EliteBook Side" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP Lid Closed" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP Ports" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
+                    </div>
+
+                    <h3 class="card-title">HP EliteBook 840 G6</h3>
+                    <p class="card-desc">Enterprise-grade business laptop with premium aluminum chassis, built for reliability and security.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i5-8365U</span>
+                        <span class="spec-tag">16GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">14" FHD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$479 AUD</span>
+                        <span class="shipping-text">+ $59.99 Shipping</span>
+                    </div>
+                    <span class="btn-fluid green-btn" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=HP%20EliteBook%20840%20G6%20Purchase%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20buying%20the%20HP%20EliteBook%20840%20G6.', '_blank')">Buy Now</span>
                 </div>
             </div>
 
             <!-- ASUS ZenBook Pro Card -->
-            <div class="glass-card tilt-card">
+            <div class="glass-card tilt-card" onclick="openProductDetail('asus-zenbook')">
                 <div>
-                    <div class="image-slider" id="slider-asus" tabindex="0">
-                        <button class="slider-btn prev" onclick="changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
-                        <button class="slider-btn next" onclick="changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
+                    <div class="image-slider" id="slider-asus" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
                         <span class="image-indicator">1 / 6</span>
                         
                         <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=600&auto=format&fit=crop" class="active" alt="ASUS ZenBook Front" loading="lazy">
                         <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" alt="ASUS ZenBook Angle" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="ASUS Keyboard View" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="ASUS Keyboard" loading="lazy">
                         <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="ASUS Display" loading="lazy">
                         <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="ASUS Ports" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="ASUS Lid View" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="ASUS Lid" loading="lazy">
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -694,11 +786,10 @@
                     <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work and gaming.</p>
                     
                     <div class="spec-list">
-                        <span class="spec-tag">Intel i7-4720HQ</span>
+                        <span class="spec-tag">i7-4720HQ</span>
                         <span class="spec-tag">16GB RAM</span>
                         <span class="spec-tag">GTX 960M</span>
                         <span class="spec-tag">1.1TB SSD+HDD</span>
-                        <span class="spec-tag">15.6" 4K Touch</span>
                     </div>
                 </div>
 
@@ -707,7 +798,7 @@
                         <span class="current-price">$459 AUD</span>
                         <span class="shipping-text">+ $59.99 Shipping</span>
                     </div>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=ASUS%20ZenBook%20Pro%20Purchase%20Inquiry&body=Hi%20ReByte,%20I'm%20interested%20in%20buying%20the%20ASUS%20ZenBook%20Pro%20UX501JW." target="_blank" class="btn-fluid green-btn">Buy Now</a>
+                    <span class="btn-fluid green-btn" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=ASUS%20ZenBook%20Pro%20Purchase%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20buying%20the%20ASUS%20ZenBook%20Pro%20UX501JW.', '_blank')">Buy Now</span>
                 </div>
             </div>
         </div>
@@ -733,14 +824,11 @@
     <!-- BACK TO TOP -->
     <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-    <!-- NOTIFY ME MODAL -->
-    <div class="modal-overlay" id="notifyModal" role="dialog" aria-modal="true">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeNotifyModal()" aria-label="Close modal">✕</button>
-            <h2 style="margin-bottom:0.5rem; font-size:1.8rem;">Get Stock Alert</h2>
-            <p style="color:#a1a1aa; margin-bottom:1.5rem;" id="notifyProductName">We'll email you when this item is back in stock.</p>
-            <input type="email" id="notifyEmail" placeholder="your@email.com" style="margin-bottom:1rem; width:100%; padding:1rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.2); border-radius:16px; color:#fff; outline:none;">
-            <button class="btn-fluid green-btn" onclick="submitNotify()" style="width:100%;">Notify Me</button>
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="modal-overlay" id="productModal" role="dialog" aria-modal="true">
+        <div class="modal-content" id="productModalContent">
+            <button class="close-btn" onclick="closeProductDetail()" aria-label="Close modal">✕</button>
+            <div id="productDetailBody"></div>
         </div>
     </div>
 
@@ -771,12 +859,135 @@
             });
         }
 
+        // --- PRODUCT DETAIL DATA ---
+        const productDetails = {
+            'dell-xps': {
+                icon: '💻',
+                name: 'Dell XPS 13 9343',
+                status: 'In Stock',
+                description: 'The Dell XPS 13 9343 features a stunning 13.3-inch InfinityEdge display with virtually no bezel, making it one of the most compact 13-inch laptops available. Built with a carbon fiber palm rest and aluminum lid, it delivers premium durability in an ultra-portable design.',
+                specs: [
+                    ['Model', 'Dell XPS 13 9343'],
+                    ['Processor', 'Intel Core i5-5200U (2.2GHz, up to 2.7GHz)'],
+                    ['RAM', '8GB DDR3L 1600MHz'],
+                    ['Storage', '256GB M.2 SATA SSD'],
+                    ['Display', '13.3" Full HD (1920 x 1080) InfinityEdge'],
+                    ['Graphics', 'Intel HD Graphics 5500'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 10 hours battery life'],
+                    ['Weight', '1.26 kg (2.8 lbs)'],
+                    ['Ports', '2x USB 3.0, Mini DisplayPort, SD card, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
+                    ['Condition', 'Refurbished - Grade A, minor signs of use'],
+                    ['Included', 'Laptop + Original Dell AC Adapter']
+                ],
+                price: '$399 AUD',
+                shipping: '+ $59.99 Shipping'
+            },
+            'hp-elitebook': {
+                icon: '💼',
+                name: 'HP EliteBook 840 G6',
+                status: 'In Stock',
+                description: 'The HP EliteBook 840 G6 is a premium business-class laptop designed for professionals who demand reliability, security, and performance. With its sleek aluminum chassis, powerful 8th Gen Intel processor, and comprehensive security features, it is the ideal companion for enterprise work.',
+                specs: [
+                    ['Model', 'HP EliteBook 840 G6'],
+                    ['Processor', 'Intel Core i5-8365U (1.6GHz, up to 4.1GHz, 4 cores)'],
+                    ['RAM', '16GB DDR4 2400MHz'],
+                    ['Storage', '256GB PCIe NVMe M.2 SSD'],
+                    ['Display', '14" Full HD (1920 x 1080) IPS Anti-Glare'],
+                    ['Graphics', 'Intel UHD Graphics 620'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 14 hours battery life'],
+                    ['Weight', '1.48 kg (3.26 lbs)'],
+                    ['Ports', '2x USB 3.1, 1x USB-C (Thunderbolt), HDMI, RJ-45, Docking connector, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 6 (802.11ax), Bluetooth 5.0'],
+                    ['Security', 'TPM 2.0, HP Sure Start, Fingerprint reader'],
+                    ['Condition', 'Refurbished - Grade A, excellent condition'],
+                    ['Included', 'Laptop + Original HP AC Adapter']
+                ],
+                price: '$479 AUD',
+                shipping: '+ $59.99 Shipping'
+            },
+            'asus-zenbook': {
+                icon: '🎮',
+                name: 'ASUS ZenBook Pro UX501JW',
+                status: 'In Stock',
+                description: 'The ASUS ZenBook Pro UX501JW combines elegant design with serious performance. Featuring a dedicated NVIDIA GTX 960M graphics card and a vibrant 4K touch display, this laptop is perfect for content creators, designers, and gamers who need power on the go.',
+                specs: [
+                    ['Model', 'ASUS ZenBook Pro UX501JW-FL177H'],
+                    ['Processor', 'Intel Core i7-4720HQ (2.6GHz, up to 3.6GHz, 4 cores)'],
+                    ['RAM', '16GB DDR3L 1600MHz'],
+                    ['Storage', '1.1TB Total (256GB SSD + 1TB HDD)'],
+                    ['Display', '15.6" 4K UHD (3840 x 2160) Touchscreen IPS'],
+                    ['Graphics', 'NVIDIA GeForce GTX 960M 2GB GDDR5'],
+                    ['Operating System', 'Windows 10 Home'],
+                    ['Battery', 'Up to 6 hours battery life'],
+                    ['Weight', '2.06 kg (4.5 lbs)'],
+                    ['Ports', '3x USB 3.0, HDMI, Mini DisplayPort, SD card, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
+                    ['Audio', 'Bang & Olufsen ICEpower audio'],
+                    ['Condition', 'Refurbished - Grade A, minor cosmetic wear'],
+                    ['Included', 'Laptop + Original ASUS AC Adapter']
+                ],
+                price: '$459 AUD',
+                shipping: '+ $59.99 Shipping'
+            }
+        };
+
+        // --- OPEN PRODUCT DETAIL MODAL ---
+        function openProductDetail(productId) {
+            const data = productDetails[productId];
+            if (!data) return;
+
+            let specsHTML = '';
+            data.specs.forEach(spec => {
+                specsHTML += `
+                    <tr>
+                        <td>${spec[0]}</td>
+                        <td>${spec[1]}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('productDetailBody').innerHTML = `
+                <div class="detail-header">
+                    <span class="detail-icon">${data.icon}</span>
+                    <div>
+                        <h2 class="detail-title">${data.name}</h2>
+                        <span class="status-pill in-stock" style="margin-top:0.5rem;">${data.status}</span>
+                    </div>
+                </div>
+                <p style="color:#a1a1aa; line-height:1.6; margin-bottom:1.5rem;">${data.description}</p>
+                
+                <table class="specs-table">
+                    <tbody>${specsHTML}</tbody>
+                </table>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.15);">
+                    <div>
+                        <span style="font-size:1.6rem; font-weight:900; color:#00f0ff;">${data.price}</span>
+                        <span style="display:block; color:#a1a1aa; font-size:0.85rem;">${data.shipping}</span>
+                    </div>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=${encodeURIComponent(data.name + ' Purchase Inquiry')}&body=Hi%20ReByte,%20I'm%20interested%20in%20buying%20the%20${encodeURIComponent(data.name)}." target="_blank" class="btn-fluid green-btn" style="font-size:1rem; padding:1rem 2.5rem;">Buy Now</a>
+                </div>
+            `;
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // --- 6-IMAGE SLIDER LOGIC ---
         const sliderAutoPlay = {};
         const autoPlayInterval = 4000;
 
         function changeImage(sliderId, direction) {
             const slider = document.getElementById(sliderId);
+            if (!slider) return;
             const images = slider.querySelectorAll('img');
             const indicator = slider.querySelector('.image-indicator');
             let currentIndex = 0;
@@ -788,9 +999,8 @@
             images[currentIndex].classList.remove('active');
             let newIndex = (currentIndex + direction + images.length) % images.length;
             images[newIndex].classList.add('active');
-            indicator.textContent = `${newIndex + 1} / ${images.length}`;
+            if (indicator) indicator.textContent = `${newIndex + 1} / ${images.length}`;
             
-            // Reset auto-play timer on manual change
             resetAutoPlay(sliderId);
         }
 
@@ -815,6 +1025,7 @@
 
         function addTouchSupport(sliderId) {
             const slider = document.getElementById(sliderId);
+            if (!slider) return;
             let touchStartX = 0;
             
             slider.addEventListener('touchstart', (e) => {
@@ -843,21 +1054,20 @@
                 slider.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
+                        e.stopPropagation();
                         changeImage(sliderId, -1);
                     } else if (e.key === 'ArrowRight') {
                         e.preventDefault();
+                        e.stopPropagation();
                         changeImage(sliderId, 1);
                     }
                 });
                 
-                // Start auto-play
                 startAutoPlay(sliderId);
                 
-                // Pause on hover
                 slider.addEventListener('mouseenter', () => stopAutoPlay(sliderId));
                 slider.addEventListener('mouseleave', () => startAutoPlay(sliderId));
                 
-                // Image load detection
                 const images = slider.querySelectorAll('img');
                 let loadedCount = 0;
                 
@@ -881,45 +1091,20 @@
                 }
             });
             
-            // Initialize tilt
             initTilt();
         });
 
-        // --- NOTIFY MODAL ---
-        function openNotifyModal(productName) {
-            document.getElementById('notifyProductName').textContent = `We'll email you when the ${productName} is back in stock.`;
-            document.getElementById('notifyModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => document.getElementById('notifyEmail').focus(), 100);
-        }
-
-        function closeNotifyModal() {
-            document.getElementById('notifyModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function submitNotify() {
-            const email = document.getElementById('notifyEmail').value;
-            if (email && email.includes('@') && email.includes('.')) {
-                alert('Thanks! We\'ll notify you at ' + email + ' when stock arrives.');
-                closeNotifyModal();
-                document.getElementById('notifyEmail').value = '';
-                document.getElementById('notifyEmail').style.borderColor = 'rgba(255, 255, 255, 0.2)';
-            } else {
-                document.getElementById('notifyEmail').style.borderColor = '#ff0080';
-                document.getElementById('notifyEmail').style.boxShadow = '0 0 15px rgba(255, 0, 128, 0.5)';
-                document.getElementById('notifyEmail').focus();
-            }
-        }
-
+        // Close modals on Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('notifyModal').classList.contains('active')) {
-                closeNotifyModal();
+            if (e.key === 'Escape') {
+                if (document.getElementById('productModal').classList.contains('active')) {
+                    closeProductDetail();
+                }
             }
         });
 
-        document.getElementById('notifyModal').addEventListener('click', function(e) {
-            if (e.target === this) closeNotifyModal();
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductDetail();
         });
 
         // --- DYNAMIC ISLAND ---
