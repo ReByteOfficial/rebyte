@@ -8,9 +8,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     
     <title>ReByte | Premium Tech & Refurbished Laptops</title>
-    <meta name="description" content="ReByte - Premium refurbished laptops and tech. Buy quality pre-owned MacBooks and PCs or trade in your old devices for cash.">
+    <meta name="description" content="ReByte - Premium refurbished laptops and tech. Buy quality pre-owned laptops or trade in your old devices for cash.">
     <meta property="og:title" content="ReByte | Premium Tech & Refurbished Laptops">
-    <meta property="og:description" content="Fair deals on quality pre-owned MacBooks and PCs. Fully refurbished, stress-tested, and ready for work.">
+    <meta property="og:description" content="Fair deals on quality pre-owned laptops. Fully refurbished, stress-tested, and ready for work.">
     <meta property="og:type" content="website">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -792,7 +792,7 @@
                     <span>ReByte</span>
                 </a>
                 <nav>
-                    <a href="./macbooks.html">Mac & PC Stock</a>
+                    <a href="./macbooks.html">Laptop Stock</a>
                     <a href="#guide-section">Buying Guide</a>
                     <a href="#trade-section">Trade-In</a>
                 </nav>
@@ -803,7 +803,7 @@
         <div class="hero-container">
             <section class="hero-card tilt-card">
                 <h1>Cheap prices with good laptops.</h1>
-                <p class="subtitle">Fair deals on quality pre-owned MacBooks and PCs. Fully refurbished, stress-tested, and ready for work.</p>
+                <p class="subtitle">Fair deals on quality pre-owned laptops. Fully refurbished, stress-tested, and ready for work.</p>
                 <div class="hero-buttons">
                     <a href="./macbooks.html" class="btn-fluid">Explore Stock</a>
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=Inquiry%20from%20ReByte%20Website" target="_blank" class="btn-fluid glass-btn">Email Us Directly</a>
@@ -856,7 +856,7 @@
                     <select name="request_type" required>
                         <option value="" disabled selected>Select Request Type</option>
                         <option value="Notify Me When In Stock">Notify Me When Stock Arrives</option>
-                        <option value="Trade-In MacBook / iPad">Trade-In MacBook / iPad</option>
+                        <option value="Trade-In Laptop / iPad">Trade-In Laptop / iPad</option>
                         <option value="Trade-In Windows Laptop / PC">Trade-In Windows Laptop / PC</option>
                     </select>
                     <input type="text" name="model" placeholder="Device Model & Details" required>
@@ -931,7 +931,7 @@
                 <ul>
                     <li><strong>Recommended Memory:</strong> 8GB to 16GB RAM for seamless multitasking.</li>
                     <li><strong>Fast Storage:</strong> 256GB+ Solid State Drive (SSD) for instant boot times.</li>
-                    <li><strong>Best Hardware Pick:</strong> <strong>MacBook Pro</strong> or <strong>ASUS ZenBook</strong>. MacBooks offer world-class screen displays and long battery cycles, while ASUS ZenBooks provide ultimate performance for university programs.</li>
+                    <li><strong>Best Hardware Pick:</strong> <strong>Dell XPS 13</strong> or <strong>HP EliteBook</strong>. Both offer excellent build quality, long battery life, and professional performance for university work.</li>
                 </ul>
             `,
             senior: `
@@ -939,9 +939,9 @@
                 <h2 id="modalTitle" style="font-size: 2.2rem; color: #fff; margin-bottom: 1rem;">Seniors & Everyday Guide</h2>
                 <p style="color: #a1a1aa; line-height: 1.6;">For casual everyday use, readability and ease-of-use take priority. You want a screen that doesn't strain your eyes and an operating system free from bloated setup menus.</p>
                 <ul>
-                    <li><strong>Display Clarity:</strong> High-definition Retina or FHD anti-glare screen.</li>
+                    <li><strong>Display Clarity:</strong> High-definition FHD anti-glare screen for comfortable viewing.</li>
                     <li><strong>Reliability:</strong> Simple keyboard layouts with quiet, smooth key travel.</li>
-                    <li><strong>Best Hardware Pick:</strong> <strong>Apple MacBook</strong> or <strong>Windows 11 Laptop</strong>. MacBooks feature clear, high-contrast displays with straightforward app navigation, while Windows laptops offer traditional, familiar controls.</li>
+                    <li><strong>Best Hardware Pick:</strong> <strong>HP EliteBook 840 G6</strong> or <strong>Dell XPS 13</strong>. Both offer clear displays, familiar Windows navigation, and durable build quality.</li>
                 </ul>
             `
         };
@@ -1036,7 +1036,6 @@
         if (!window.WebGLRenderingContext) {
             canvas.style.display = 'none';
             document.body.style.background = 'linear-gradient(135deg, #020205 0%, #0a0a1a 100%)';
-            console.warn('WebGL not supported');
         }
         
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
@@ -1133,7 +1132,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Initialize tilt on page load
         initTilt();
     </script>
 </body>
