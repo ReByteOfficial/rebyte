@@ -279,14 +279,6 @@
                         inset 0 -2px 10px rgba(0, 240, 255, 0.08);
         }
 
-        .hero-card.pink-accent:hover {
-            border-color: rgba(255, 0, 128, 0.6);
-            box-shadow: 0 50px 140px rgba(0, 0, 0, 0.9), 
-                        inset 0 4px 8px rgba(255, 255, 255, 0.7),
-                        0 0 80px rgba(255, 0, 128, 0.18),
-                        inset 0 -2px 10px rgba(255, 0, 128, 0.08);
-        }
-
         h1 {
             font-size: 3.8rem;
             font-weight: 900;
@@ -470,15 +462,6 @@
             box-shadow: 0 40px 100px rgba(0, 240, 255, 0.25);
         }
 
-        .guide-card.pink-border::before {
-            background: radial-gradient(ellipse at center, rgba(255, 0, 128, 0.04) 0%, transparent 70%);
-        }
-
-        .guide-card.pink-border:hover {
-            border-color: rgba(255, 0, 128, 0.7);
-            box-shadow: 0 40px 100px rgba(255, 0, 128, 0.25);
-        }
-
         .guide-icon { font-size: 2.8rem; margin-bottom: 1rem; position: relative; z-index: 1; }
         .guide-card h3 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 1rem; position: relative; z-index: 1; }
         .guide-card p { color: #a1a1aa; font-size: 0.98rem; line-height: 1.6; position: relative; z-index: 1; }
@@ -579,9 +562,6 @@
             justify-content: center;
             transition: all 0.3s ease;
             z-index: 10;
-            position: sticky;
-            top: 0;
-            margin-left: auto;
         }
 
         .close-btn:hover {
@@ -767,11 +747,6 @@
             textarea, .submit-btn { grid-column: span 1; }
             .footer-content { flex-direction: column; text-align: center; }
             .modal-content { padding: 2rem 1.5rem; }
-            .modal-content .close-btn {
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -915,15 +890,6 @@
                 <p style="color: #a1a1aa; margin-bottom: 2rem;" id="buyOptionsProductName">Choose how you'd like to purchase:</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <button onclick="buyViaEBay()" class="buy-option-btn">
-                        <span style="font-size:2rem;">🛒</span>
-                        <span style="text-align:left;">
-                            <span style="display:block; font-weight:800; font-size:1.1rem;">Buy on eBay</span>
-                            <span style="font-size:0.85rem; color:#a1a1aa;">Secure checkout with buyer protection</span>
-                        </span>
-                        <span style="margin-left:auto; color:#00f0ff;">→</span>
-                    </button>
-                    
                     <button onclick="buyViaFacebook()" class="buy-option-btn">
                         <span style="font-size:2rem;">📘</span>
                         <span style="text-align:left;">
@@ -988,11 +954,6 @@
             document.body.style.overflow = '';
         }
 
-        function buyViaEBay() {
-            window.open('https://www.ebay.com.au', '_blank');
-            closeBuyOptions();
-        }
-
         function buyViaFacebook() {
             window.open('https://www.facebook.com/marketplace', '_blank');
             closeBuyOptions();
@@ -1038,7 +999,7 @@
                 <ul>
                     <li><strong>Recommended Memory:</strong> 8GB to 16GB RAM for seamless multitasking.</li>
                     <li><strong>Fast Storage:</strong> 256GB+ Solid State Drive (SSD) for instant boot times.</li>
-                    <li><strong>Best Hardware Pick:</strong> <strong>Dell XPS 13</strong> or <strong>HP EliteBook</strong>. Both offer excellent build quality, long battery life, and professional performance for university work.</li>
+                    <li><strong>Best Hardware Pick:</strong> <strong>HP EliteBook 840 G5</strong> or <strong>HP EliteBook 840 G6</strong>. Both offer excellent build quality, long battery life, and professional performance for university work.</li>
                 </ul>
             `,
             senior: `
@@ -1048,7 +1009,7 @@
                 <ul>
                     <li><strong>Display Clarity:</strong> High-definition FHD anti-glare screen for comfortable viewing.</li>
                     <li><strong>Reliability:</strong> Simple keyboard layouts with quiet, smooth key travel.</li>
-                    <li><strong>Best Hardware Pick:</strong> <strong>HP EliteBook 840 G6</strong> or <strong>Dell XPS 13</strong>. Both offer clear displays, familiar Windows navigation, and durable build quality.</li>
+                    <li><strong>Best Hardware Pick:</strong> <strong>HP EliteBook Folio 1040 G3</strong> or <strong>HP EliteBook 840 G3</strong>. Both offer clear displays, familiar Windows navigation, and durable build quality.</li>
                 </ul>
             `
         };
