@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laptop Stock | ReByte Inventory</title>
-    <meta name="description" content="Browse our refurbished laptop stock - Dell XPS 13, HP EliteBook 840 G6, ASUS ZenBook Pro. Quality pre-owned laptops at fair prices.">
+    <meta name="description" content="Browse our refurbished laptop stock - HP EliteBook, Dell XPS, ASUS ZenBook Pro. Quality pre-owned laptops at fair prices.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -333,16 +333,16 @@
             text-transform: uppercase;
         }
 
-        .status-pill.out-stock {
-            background: rgba(255, 0, 128, 0.1);
-            border: 1px solid rgba(255, 0, 128, 0.4);
-            color: #ff0080;
-        }
-
         .status-pill.in-stock {
             background: rgba(0, 240, 255, 0.1);
             border: 1px solid rgba(0, 240, 255, 0.4);
             color: #00f0ff;
+        }
+
+        .stock-count {
+            font-size: 0.8rem;
+            color: #00f0ff;
+            font-weight: 700;
         }
 
         .card-title { font-size: 1.8rem; font-weight: 800; margin: 1rem 0 0.5rem; }
@@ -357,7 +357,7 @@
             font-size: 0.82rem; 
         }
 
-        .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+        .price-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: 0.5rem; flex-wrap: wrap; }
 
         .price-display {
             display: flex;
@@ -378,16 +378,16 @@
 
         /* --- STYLISH BUTTON --- */
         .btn-fluid {
-            padding: 0.75rem 1.8rem;
+            padding: 0.75rem 1.5rem;
             font-size: 0.9rem;
             font-weight: 800;
             color: #000;
-            background: linear-gradient(135deg, #ffffff 0%, #ff0080 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 100px;
             text-decoration: none;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 0, 128, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -405,15 +405,8 @@
         }
 
         .btn-fluid:hover::before { left: 100%; }
-        .btn-fluid:hover { transform: scale(1.08); box-shadow: 0 0 45px rgba(255, 0, 128, 0.9); }
+        .btn-fluid:hover { transform: scale(1.08); box-shadow: 0 0 45px rgba(0, 240, 255, 0.9); }
         .btn-fluid:active { transform: scale(0.96); }
-
-        .btn-fluid.green-btn {
-            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9);
-        }
-
-        .btn-fluid.green-btn:hover { box-shadow: 0 0 45px rgba(0, 240, 255, 0.9); }
 
         /* --- PRODUCT DETAIL MODAL --- */
         .modal-overlay {
@@ -682,6 +675,170 @@
         </div>
 
         <div class="products-grid">
+            <!-- HP EliteBook Folio 1040 G3 Card (4x in stock) -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('hp-folio-1040-g3')">
+                <div>
+                    <div class="image-slider" id="slider-hp-folio" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-folio', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp-folio', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP Folio Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP Folio Side" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP Folio Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP Folio Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP Folio Lid" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP Folio Ports" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span class="stock-count">4x Available</span>
+                    </div>
+
+                    <h3 class="card-title">HP EliteBook Folio 1040 G3</h3>
+                    <p class="card-desc">Ultra-slim business ultrabook with premium aluminum build, perfect for professionals.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i5-6300U</span>
+                        <span class="spec-tag">8GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">14" FHD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$259.99 AUD</span>
+                        <span class="shipping-text">+ $19.99 Shipping</span>
+                    </div>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook Folio 1040 G3', 'Hi ReByte, I\'m interested in buying the HP EliteBook Folio 1040 G3.')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- HP EliteBook 840 G3 Card -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g3')">
+                <div>
+                    <div class="image-slider" id="slider-hp-840-g3" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g3', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp-840-g3', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP 840 G3 Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP 840 G3 Side" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP 840 G3 Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP 840 G3 Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP 840 G3 Lid" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP 840 G3 Ports" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span class="stock-count">1x Available</span>
+                    </div>
+
+                    <h3 class="card-title">HP EliteBook 840 G3</h3>
+                    <p class="card-desc">Reliable business laptop with solid performance and durable build quality.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i5-6300U</span>
+                        <span class="spec-tag">8GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">14" FHD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$309.99 AUD</span>
+                        <span class="shipping-text">+ $19.99 Shipping</span>
+                    </div>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G3', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G3.')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- HP EliteBook 840 G5 Card -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g5')">
+                <div>
+                    <div class="image-slider" id="slider-hp-840-g5" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g5', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp-840-g5', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP 840 G5 Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP 840 G5 Side" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP 840 G5 Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP 840 G5 Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP 840 G5 Lid" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP 840 G5 Ports" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span class="stock-count">1x Available</span>
+                    </div>
+
+                    <h3 class="card-title">HP EliteBook 840 G5</h3>
+                    <p class="card-desc">Modern business laptop with 8th Gen Intel processor for enhanced performance.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i5-8350U</span>
+                        <span class="spec-tag">8GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">14" FHD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$349.99 AUD</span>
+                        <span class="shipping-text">+ $19.99 Shipping</span>
+                    </div>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G5', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G5.')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- HP EliteBook 840 G6 Card -->
+            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g6')">
+                <div>
+                    <div class="image-slider" id="slider-hp-840-g6" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g6', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp-840-g6', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 6</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP 840 G6 Front" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP 840 G6 Side" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP 840 G6 Keyboard" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP 840 G6 Display" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP 840 G6 Lid" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP 840 G6 Ports" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span class="stock-count">1x Available</span>
+                    </div>
+
+                    <h3 class="card-title">HP EliteBook 840 G6</h3>
+                    <p class="card-desc">Premium business laptop with 16GB RAM and advanced security features.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i5-8365U</span>
+                        <span class="spec-tag">16GB RAM</span>
+                        <span class="spec-tag">256GB SSD</span>
+                        <span class="spec-tag">14" FHD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$389.99 AUD</span>
+                        <span class="shipping-text">+ $19.99 Shipping</span>
+                    </div>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G6', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G6.')">Buy Now</button>
+                </div>
+            </div>
+
             <!-- Dell XPS 13 Card -->
             <div class="glass-card tilt-card" onclick="openProductDetail('dell-xps')">
                 <div>
@@ -700,11 +857,11 @@
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="status-pill in-stock">In Stock</span>
-                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
+                        <span class="stock-count">1x Available</span>
                     </div>
 
                     <h3 class="card-title">Dell XPS 13 9343</h3>
-                    <p class="card-desc">Ultra-slim InfinityEdge display, premium carbon fiber build, perfect for professionals on the go.</p>
+                    <p class="card-desc">Ultra-slim InfinityEdge display, premium carbon fiber build, perfect for professionals.</p>
                     
                     <div class="spec-list">
                         <span class="spec-tag">i5-5200U</span>
@@ -716,51 +873,10 @@
 
                 <div class="price-row">
                     <div class="price-display">
-                        <span class="current-price">$399 AUD</span>
+                        <span class="current-price">$339.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
                     </div>
-                    <button class="btn-fluid green-btn" onclick="event.stopPropagation(); openBuyOptions('Dell XPS 13 9343', 'Hi ReByte, I\'m interested in buying the Dell XPS 13 9343.')">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- HP EliteBook 840 G6 Card -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('hp-elitebook')">
-                <div>
-                    <div class="image-slider" id="slider-hp" tabindex="0" onclick="event.stopPropagation()">
-                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp', -1)" aria-label="Previous image">❮</button>
-                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-hp', 1)" aria-label="Next image">❯</button>
-                        <span class="image-indicator">1 / 6</span>
-                        
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop" class="active" alt="HP EliteBook Front" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop" alt="HP EliteBook Side" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop" alt="HP Keyboard" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="HP Display" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="HP Lid Closed" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&auto=format&fit=crop" alt="HP Ports" loading="lazy">
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
-                    </div>
-
-                    <h3 class="card-title">HP EliteBook 840 G6</h3>
-                    <p class="card-desc">Enterprise-grade business laptop with premium aluminum chassis, built for reliability and security.</p>
-                    
-                    <div class="spec-list">
-                        <span class="spec-tag">i5-8365U</span>
-                        <span class="spec-tag">16GB RAM</span>
-                        <span class="spec-tag">256GB SSD</span>
-                        <span class="spec-tag">14" FHD</span>
-                    </div>
-                </div>
-
-                <div class="price-row">
-                    <div class="price-display">
-                        <span class="current-price">$479 AUD</span>
-                        <span class="shipping-text">+ $19.99 Shipping</span>
-                    </div>
-                    <button class="btn-fluid green-btn" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G6', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G6.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('Dell XPS 13 9343', 'Hi ReByte, I\'m interested in buying the Dell XPS 13 9343.')">Buy Now</button>
                 </div>
             </div>
 
@@ -782,11 +898,11 @@
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="status-pill in-stock">In Stock</span>
-                        <span style="font-size: 0.8rem; color: #00f0ff;">🇦🇺 Australia Stock</span>
+                        <span class="stock-count">1x Available</span>
                     </div>
 
                     <h3 class="card-title">ASUS ZenBook Pro</h3>
-                    <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work and gaming.</p>
+                    <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work.</p>
                     
                     <div class="spec-list">
                         <span class="spec-tag">i7-4720HQ</span>
@@ -798,10 +914,10 @@
 
                 <div class="price-row">
                     <div class="price-display">
-                        <span class="current-price">$459 AUD</span>
+                        <span class="current-price">$429.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
                     </div>
-                    <button class="btn-fluid green-btn" onclick="event.stopPropagation(); openBuyOptions('ASUS ZenBook Pro UX501JW', 'Hi ReByte, I\'m interested in buying the ASUS ZenBook Pro UX501JW.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('ASUS ZenBook Pro UX501JW', 'Hi ReByte, I\'m interested in buying the ASUS ZenBook Pro UX501JW.')">Buy Now</button>
                 </div>
             </div>
         </div>
@@ -844,15 +960,6 @@
                 <p style="color: #a1a1aa; margin-bottom: 2rem;" id="buyOptionsProductName">Choose how you'd like to purchase:</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <button onclick="buyViaEBay()" class="buy-option-btn">
-                        <span style="font-size:2rem;">🛒</span>
-                        <span style="text-align:left;">
-                            <span style="display:block; font-weight:800; font-size:1.1rem;">Buy on eBay</span>
-                            <span style="font-size:0.85rem; color:#a1a1aa;">Secure checkout with buyer protection</span>
-                        </span>
-                        <span style="margin-left:auto; color:#00f0ff;">→</span>
-                    </button>
-                    
                     <button onclick="buyViaFacebook()" class="buy-option-btn">
                         <span style="font-size:2rem;">📘</span>
                         <span style="text-align:left;">
@@ -917,11 +1024,6 @@
             document.body.style.overflow = '';
         }
 
-        function buyViaEBay() {
-            window.open('https://www.ebay.com.au', '_blank');
-            closeBuyOptions();
-        }
-
         function buyViaFacebook() {
             window.open('https://www.facebook.com/marketplace', '_blank');
             closeBuyOptions();
@@ -960,34 +1062,83 @@
 
         // --- PRODUCT DETAIL DATA ---
         const productDetails = {
-            'dell-xps': {
+            'hp-folio-1040-g3': {
                 icon: '💻',
-                name: 'Dell XPS 13 9343',
-                status: 'In Stock',
-                description: 'The Dell XPS 13 9343 features a stunning 13.3-inch InfinityEdge display with virtually no bezel, making it one of the most compact 13-inch laptops available. Built with a carbon fiber palm rest and aluminum lid, it delivers premium durability in an ultra-portable design.',
+                name: 'HP EliteBook Folio 1040 G3',
+                status: 'In Stock - 4x Available',
+                description: 'The HP EliteBook Folio 1040 G3 is an ultra-slim business ultrabook designed for professionals who demand portability without compromising on performance. Its premium aluminum chassis and enterprise-grade security features make it ideal for on-the-go productivity.',
                 specs: [
-                    ['Model', 'Dell XPS 13 9343'],
-                    ['Processor', 'Intel Core i5-5200U (2.2GHz, up to 2.7GHz)'],
-                    ['RAM', '8GB DDR3L 1600MHz'],
+                    ['Model', 'HP EliteBook Folio 1040 G3 (193F3)'],
+                    ['Processor', 'Intel Core i5-6300U (2.4GHz, up to 3.0GHz)'],
+                    ['RAM', '8GB DDR4 2133MHz'],
                     ['Storage', '256GB M.2 SATA SSD'],
-                    ['Display', '13.3" Full HD (1920 x 1080) InfinityEdge'],
-                    ['Graphics', 'Intel HD Graphics 5500'],
+                    ['Display', '14" Full HD (1920 x 1080) Anti-Glare'],
+                    ['Graphics', 'Intel HD Graphics 520'],
                     ['Operating System', 'Windows 10 Pro'],
                     ['Battery', 'Up to 10 hours battery life'],
-                    ['Weight', '1.26 kg (2.8 lbs)'],
-                    ['Ports', '2x USB 3.0, Mini DisplayPort, SD card, Headphone jack'],
-                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
-                    ['Condition', 'Refurbished - Grade A, minor signs of use'],
-                    ['Included', 'Laptop + Third-party compatible AC Adapter']
+                    ['Weight', '1.43 kg (3.15 lbs)'],
+                    ['Ports', '2x USB 3.0, 1x USB-C, HDMI, Docking connector, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.2'],
+                    ['Security', 'TPM 2.0, HP Sure Start, Fingerprint reader (optional)'],
+                    ['Condition', 'Refurbished - Grade A, excellent condition'],
+                    ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
-                price: '$399 AUD',
+                price: '$259.99 AUD',
                 shipping: '+ $19.99 Shipping'
             },
-            'hp-elitebook': {
+            'hp-840-g3': {
+                icon: '💼',
+                name: 'HP EliteBook 840 G3',
+                status: 'In Stock - 1x Available',
+                description: 'The HP EliteBook 840 G3 is a reliable business laptop with a durable design and solid performance. It features a comfortable keyboard, clear display, and enterprise-grade security for professional use.',
+                specs: [
+                    ['Model', 'HP EliteBook 840 G3 (193C6)'],
+                    ['Processor', 'Intel Core i5-6300U (2.4GHz, up to 3.0GHz)'],
+                    ['RAM', '8GB DDR4 2133MHz'],
+                    ['Storage', '256GB M.2 SATA SSD'],
+                    ['Display', '14" Full HD (1920 x 1080) Anti-Glare'],
+                    ['Graphics', 'Intel HD Graphics 520'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 12 hours battery life'],
+                    ['Weight', '1.48 kg (3.26 lbs)'],
+                    ['Ports', '2x USB 3.0, 1x USB-C, DisplayPort, VGA, RJ-45, Docking, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.2'],
+                    ['Security', 'TPM 2.0, HP Sure Start, Smart Card reader'],
+                    ['Condition', 'Refurbished - Grade A, excellent condition'],
+                    ['Included', 'Laptop + Genuine HP AC Adapter']
+                ],
+                price: '$309.99 AUD',
+                shipping: '+ $19.99 Shipping'
+            },
+            'hp-840-g5': {
+                icon: '💼',
+                name: 'HP EliteBook 840 G5',
+                status: 'In Stock - 1x Available',
+                description: 'The HP EliteBook 840 G5 is a modern business laptop featuring an 8th Gen Intel processor for enhanced performance. With its sleek design, security features, and all-day battery life, it is built for professionals.',
+                specs: [
+                    ['Model', 'HP EliteBook 840 G5 (193E4)'],
+                    ['Processor', 'Intel Core i5-8350U (1.7GHz, up to 3.6GHz, 4 cores)'],
+                    ['RAM', '8GB DDR4 2400MHz'],
+                    ['Storage', '256GB PCIe NVMe M.2 SSD'],
+                    ['Display', '14" Full HD (1920 x 1080) IPS Anti-Glare'],
+                    ['Graphics', 'Intel UHD Graphics 620'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 14 hours battery life'],
+                    ['Weight', '1.48 kg (3.26 lbs)'],
+                    ['Ports', '2x USB 3.1, 1x USB-C (Thunderbolt), HDMI, RJ-45, Docking, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.2'],
+                    ['Security', 'TPM 2.0, HP Sure Start, Fingerprint reader'],
+                    ['Condition', 'Refurbished - Grade A, excellent condition'],
+                    ['Included', 'Laptop + Genuine HP AC Adapter']
+                ],
+                price: '$349.99 AUD',
+                shipping: '+ $19.99 Shipping'
+            },
+            'hp-840-g6': {
                 icon: '💼',
                 name: 'HP EliteBook 840 G6',
-                status: 'In Stock',
-                description: 'The HP EliteBook 840 G6 is a premium business-class laptop designed for professionals who demand reliability, security, and performance. With its sleek aluminum chassis, powerful 8th Gen Intel processor, and comprehensive security features, it is the ideal companion for enterprise work.',
+                status: 'In Stock - 1x Available',
+                description: 'The HP EliteBook 840 G6 is a premium business laptop with 16GB RAM and advanced security features. It offers exceptional performance for multitasking and professional applications.',
                 specs: [
                     ['Model', 'HP EliteBook 840 G6'],
                     ['Processor', 'Intel Core i5-8365U (1.6GHz, up to 4.1GHz, 4 cores)'],
@@ -1004,14 +1155,37 @@
                     ['Condition', 'Refurbished - Grade A, excellent condition'],
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
-                price: '$479 AUD',
+                price: '$389.99 AUD',
+                shipping: '+ $19.99 Shipping'
+            },
+            'dell-xps': {
+                icon: '💻',
+                name: 'Dell XPS 13 9343',
+                status: 'In Stock - 1x Available',
+                description: 'The Dell XPS 13 9343 features a stunning 13.3-inch InfinityEdge display with virtually no bezel, making it one of the most compact 13-inch laptops available. Built with a carbon fiber palm rest and aluminum lid.',
+                specs: [
+                    ['Model', 'Dell XPS 13 9343'],
+                    ['Processor', 'Intel Core i5-5200U (2.2GHz, up to 2.7GHz)'],
+                    ['RAM', '8GB DDR3L 1600MHz'],
+                    ['Storage', '256GB M.2 SATA SSD'],
+                    ['Display', '13.3" Full HD (1920 x 1080) InfinityEdge'],
+                    ['Graphics', 'Intel HD Graphics 5500'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 10 hours battery life'],
+                    ['Weight', '1.26 kg (2.8 lbs)'],
+                    ['Ports', '2x USB 3.0, Mini DisplayPort, SD card, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
+                    ['Condition', 'Refurbished - Grade A, minor signs of use'],
+                    ['Included', 'Laptop + Third-party compatible AC Adapter']
+                ],
+                price: '$339.99 AUD',
                 shipping: '+ $19.99 Shipping'
             },
             'asus-zenbook': {
                 icon: '🎮',
                 name: 'ASUS ZenBook Pro UX501JW',
-                status: 'In Stock',
-                description: 'The ASUS ZenBook Pro UX501JW combines elegant design with serious performance. Featuring a dedicated NVIDIA GTX 960M graphics card and a vibrant 4K touch display, this laptop is perfect for content creators, designers, and gamers who need power on the go.',
+                status: 'In Stock - 1x Available',
+                description: 'The ASUS ZenBook Pro UX501JW combines elegant design with serious performance. Featuring a dedicated NVIDIA GTX 960M graphics card and a vibrant 4K touch display, perfect for content creators and gamers.',
                 specs: [
                     ['Model', 'ASUS ZenBook Pro UX501JW-FL177H'],
                     ['Processor', 'Intel Core i7-4720HQ (2.6GHz, up to 3.6GHz, 4 cores)'],
@@ -1028,7 +1202,7 @@
                     ['Condition', 'Refurbished - Grade A, minor cosmetic wear'],
                     ['Included', 'Laptop + Genuine ASUS AC Adapter']
                 ],
-                price: '$459 AUD',
+                price: '$429.99 AUD',
                 shipping: '+ $19.99 Shipping'
             }
         };
@@ -1053,7 +1227,7 @@
                     <span class="detail-icon">${data.icon}</span>
                     <div>
                         <h2 class="detail-title">${data.name}</h2>
-                        <span class="status-pill in-stock" style="margin-top:0.5rem;">${data.status}</span>
+                        <span class="status-pill in-stock" style="margin-top:0.5rem; font-size:0.7rem;">${data.status}</span>
                     </div>
                 </div>
                 <p style="color:#a1a1aa; line-height:1.6; margin-bottom:1.5rem; font-size:0.95rem;">${data.description}</p>
@@ -1067,7 +1241,7 @@
                         <span style="font-size:1.4rem; font-weight:900; color:#00f0ff;">${data.price}</span>
                         <span style="display:block; color:#a1a1aa; font-size:0.85rem;">${data.shipping}</span>
                     </div>
-                    <button class="btn-fluid green-btn" onclick="closeProductDetail(); openBuyOptions('${data.name}', 'Hi ReByte, I\'m interested in buying the ${data.name}.')" style="font-size:0.9rem; padding:0.8rem 2rem;">Buy Now</button>
+                    <button class="btn-fluid" onclick="closeProductDetail(); openBuyOptions('${data.name}', 'Hi ReByte, I\'m interested in buying the ${data.name}.')" style="font-size:0.9rem; padding:0.8rem 2rem;">Buy Now</button>
                 </div>
             `;
 
