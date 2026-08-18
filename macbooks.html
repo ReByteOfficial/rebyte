@@ -880,20 +880,19 @@
                 </div>
             </div>
 
-            <!-- ASUS ZenBook Pro Card -->
+            <!-- ASUS ZenBook Pro Card with real images -->
             <div class="glass-card tilt-card" onclick="openProductDetail('asus-zenbook')">
                 <div>
                     <div class="image-slider" id="slider-asus" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
                         <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
-                        <span class="image-indicator">1 / 6</span>
+                        <span class="image-indicator">1 / 5</span>
                         
-                        <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=600&auto=format&fit=crop" class="active" alt="ASUS ZenBook Front" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop" alt="ASUS ZenBook Angle" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop" alt="ASUS Keyboard" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=600&auto=format&fit=crop" alt="ASUS Display" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop" alt="ASUS Ports" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop" alt="ASUS Lid" loading="lazy">
+                        <img src="asusz1.jpg" class="active" alt="ASUS ZenBook Pro - Front View" loading="lazy">
+                        <img src="asusz2.jpg" alt="ASUS ZenBook Pro - Angle View" loading="lazy">
+                        <img src="asusz3.jpg" alt="ASUS ZenBook Pro - Keyboard View" loading="lazy">
+                        <img src="asusz4.jpg" alt="ASUS ZenBook Pro - Display View" loading="lazy">
+                        <img src="asusz5.jpg" alt="ASUS ZenBook Pro - Lid View" loading="lazy">
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1010,10 +1009,12 @@
         // --- BUY OPTIONS ---
         let currentProductName = '';
         let currentProductEmailBody = '';
+        let currentFacebookLink = '';
 
-        function openBuyOptions(productName, emailBody) {
+        function openBuyOptions(productName, emailBody, facebookLink) {
             currentProductName = productName;
             currentProductEmailBody = emailBody;
+            currentFacebookLink = facebookLink || 'https://www.facebook.com/marketplace';
             document.getElementById('buyOptionsProductName').textContent = `Choose how you'd like to purchase the ${productName}:`;
             document.getElementById('buyOptionsModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1025,7 +1026,7 @@
         }
 
         function buyViaFacebook() {
-            window.open('https://www.facebook.com/marketplace', '_blank');
+            window.open(currentFacebookLink, '_blank');
             closeBuyOptions();
         }
 
@@ -1084,7 +1085,8 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$259.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/marketplace'
             },
             'hp-840-g3': {
                 icon: '💼',
@@ -1108,7 +1110,8 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$309.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/marketplace'
             },
             'hp-840-g5': {
                 icon: '💼',
@@ -1132,7 +1135,8 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$349.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/marketplace'
             },
             'hp-840-g6': {
                 icon: '💼',
@@ -1156,7 +1160,8 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$389.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/marketplace'
             },
             'dell-xps': {
                 icon: '💻',
@@ -1179,7 +1184,8 @@
                     ['Included', 'Laptop + Third-party compatible AC Adapter']
                 ],
                 price: '$339.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/marketplace'
             },
             'asus-zenbook': {
                 icon: '🎮',
@@ -1203,7 +1209,8 @@
                     ['Included', 'Laptop + Genuine ASUS AC Adapter']
                 ],
                 price: '$429.99 AUD',
-                shipping: '+ $19.99 Shipping'
+                shipping: '+ $19.99 Shipping',
+                facebookLink: 'https://www.facebook.com/share/1LykSD1gPR/'
             }
         };
 
@@ -1241,7 +1248,7 @@
                         <span style="font-size:1.4rem; font-weight:900; color:#00f0ff;">${data.price}</span>
                         <span style="display:block; color:#a1a1aa; font-size:0.85rem;">${data.shipping}</span>
                     </div>
-                    <button class="btn-fluid" onclick="closeProductDetail(); openBuyOptions('${data.name}', 'Hi ReByte, I\'m interested in buying the ${data.name}.')" style="font-size:0.9rem; padding:0.8rem 2rem;">Buy Now</button>
+                    <button class="btn-fluid" onclick="closeProductDetail(); openBuyOptions('${data.name}', 'Hi ReByte, I\'m interested in buying the ${data.name}.', '${data.facebookLink}')" style="font-size:0.9rem; padding:0.8rem 2rem;">Buy Now</button>
                 </div>
             `;
 
