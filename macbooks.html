@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laptop Stock | ReByte Inventory</title>
-    <meta name="description" content="Browse our refurbished laptop stock - HP EliteBook, Dell XPS, ASUS ZenBook Pro. Quality pre-owned laptops at fair prices.">
+    <meta name="description" content="Browse our refurbished laptop stock - ASUS ZenBook Pro, HP EliteBook, Dell XPS. Quality pre-owned laptops at fair prices.">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -144,7 +144,7 @@
         .page-header {
             margin-top: 8rem;
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
         .page-header h1 {
@@ -153,6 +153,39 @@
             background: linear-gradient(180deg, #ffffff 0%, #00f0ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* --- SORTING CONTROLS --- */
+        .sorting-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .sort-select {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 100px;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            backdrop-filter: blur(30px);
+            transition: all 0.3s ease;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .sort-select:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .sort-select option {
+            background: #080812;
+            color: #fff;
         }
 
         /* --- PRODUCT STOCK GRID --- */
@@ -234,7 +267,7 @@
             50% { transform: translate(3%, -3%) rotate(2deg) scale(1.04); }
         }
 
-        /* --- 6-IMAGE SLIDER --- */
+        /* --- IMAGE SLIDER --- */
         .image-slider {
             position: relative;
             width: 100%;
@@ -339,6 +372,12 @@
             color: #00f0ff;
         }
 
+        .status-pill.coming-soon {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.4);
+            color: #ffa500;
+        }
+
         .stock-count {
             font-size: 0.8rem;
             color: #00f0ff;
@@ -374,6 +413,12 @@
         .shipping-text {
             color: #a1a1aa;
             font-size: 0.8rem;
+        }
+
+        .pickup-text {
+            color: #ffa500;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         /* --- STYLISH BUTTON --- */
@@ -674,9 +719,65 @@
             <p style="color: #a1a1aa; margin-top: 0.5rem;">Click any product to view full specifications. All laptops come with charger.</p>
         </div>
 
-        <div class="products-grid">
-            <!-- HP EliteBook Folio 1040 G3 Card (4x in stock) -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('hp-folio-1040-g3')">
+        <!-- SORTING CONTROLS -->
+        <div class="sorting-controls">
+            <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)">
+                <option value="default">Sort by: Default Order</option>
+                <option value="cheapest">Sort by: Cheapest to Expensive</option>
+                <option value="expensive">Sort by: Expensive to Cheapest</option>
+                <option value="alphabetical">Sort by: Alphabetical (A-Z)</option>
+            </select>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- ASUS ZenBook Pro Card (In Stock - at top) -->
+            <div class="glass-card tilt-card" data-price="429.99" data-name="ASUS ZenBook Pro" onclick="openProductDetail('asus-zenbook')">
+                <div>
+                    <div class="image-slider" id="slider-asus" tabindex="0" onclick="event.stopPropagation()">
+                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
+                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
+                        <span class="image-indicator">1 / 10</span>
+                        
+                        <img src="asusz1.heic" class="active" alt="ASUS ZenBook Pro - View 1" loading="lazy">
+                        <img src="asusz2.heic" alt="ASUS ZenBook Pro - View 2" loading="lazy">
+                        <img src="asusz3.heic" alt="ASUS ZenBook Pro - View 3" loading="lazy">
+                        <img src="asusz4.jpg" alt="ASUS ZenBook Pro - View 4" loading="lazy">
+                        <img src="asusz5.jpg" alt="ASUS ZenBook Pro - View 5" loading="lazy">
+                        <img src="asusz6.heic" alt="ASUS ZenBook Pro - View 6" loading="lazy">
+                        <img src="asusz7.heic" alt="ASUS ZenBook Pro - View 7" loading="lazy">
+                        <img src="asusz8.heic" alt="ASUS ZenBook Pro - View 8" loading="lazy">
+                        <img src="asusz9.jpg" alt="ASUS ZenBook Pro - View 9" loading="lazy">
+                        <img src="asusz10.heic" alt="ASUS ZenBook Pro - View 10" loading="lazy">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="status-pill in-stock">In Stock</span>
+                        <span class="stock-count">1x Available</span>
+                    </div>
+
+                    <h3 class="card-title">ASUS ZenBook Pro</h3>
+                    <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work.</p>
+                    
+                    <div class="spec-list">
+                        <span class="spec-tag">i7-4720HQ</span>
+                        <span class="spec-tag">16GB RAM</span>
+                        <span class="spec-tag">GTX 960M</span>
+                        <span class="spec-tag">128GB SSD + 1TB HDD</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-display">
+                        <span class="current-price">$429.99 AUD</span>
+                        <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
+                    </div>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('ASUS ZenBook Pro UX501JW', 'Hi ReByte, I\'m interested in buying the ASUS ZenBook Pro UX501JW.', 'https://www.facebook.com/share/1LykSD1gPR/')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- HP EliteBook Folio 1040 G3 Card (Coming Soon) -->
+            <div class="glass-card tilt-card" data-price="179.99" data-name="HP EliteBook Folio 1040 G3" onclick="openProductDetail('hp-folio-1040-g3')">
                 <div>
                     <div class="image-slider" id="slider-hp-folio" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-folio', -1)" aria-label="Previous image">❮</button>
@@ -692,8 +793,8 @@
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">4x Available</span>
+                        <span class="status-pill coming-soon">Coming Soon</span>
+                        <span class="stock-count">4x Expected</span>
                     </div>
 
                     <h3 class="card-title">HP EliteBook Folio 1040 G3</h3>
@@ -709,15 +810,16 @@
 
                 <div class="price-row">
                     <div class="price-display">
-                        <span class="current-price">$259.99 AUD</span>
+                        <span class="current-price">$179.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
                     </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook Folio 1040 G3', 'Hi ReByte, I\'m interested in buying the HP EliteBook Folio 1040 G3.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=HP%20EliteBook%20Folio%201040%20G3%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20the%20HP%20EliteBook%20Folio%201040%20G3%20when%20it%20arrives.', '_blank')">Notify Me</button>
                 </div>
             </div>
 
-            <!-- HP EliteBook 840 G3 Card -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g3')">
+            <!-- HP EliteBook 840 G3 Card (Coming Soon) -->
+            <div class="glass-card tilt-card" data-price="309.99" data-name="HP EliteBook 840 G3" onclick="openProductDetail('hp-840-g3')">
                 <div>
                     <div class="image-slider" id="slider-hp-840-g3" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g3', -1)" aria-label="Previous image">❮</button>
@@ -733,8 +835,8 @@
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">1x Available</span>
+                        <span class="status-pill coming-soon">Coming Soon</span>
+                        <span class="stock-count">1x Expected</span>
                     </div>
 
                     <h3 class="card-title">HP EliteBook 840 G3</h3>
@@ -752,13 +854,14 @@
                     <div class="price-display">
                         <span class="current-price">$309.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
                     </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G3', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G3.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=HP%20EliteBook%20840%20G3%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20the%20HP%20EliteBook%20840%20G3%20when%20it%20arrives.', '_blank')">Notify Me</button>
                 </div>
             </div>
 
-            <!-- HP EliteBook 840 G5 Card -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g5')">
+            <!-- HP EliteBook 840 G5 Card (Coming Soon) -->
+            <div class="glass-card tilt-card" data-price="349.99" data-name="HP EliteBook 840 G5" onclick="openProductDetail('hp-840-g5')">
                 <div>
                     <div class="image-slider" id="slider-hp-840-g5" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g5', -1)" aria-label="Previous image">❮</button>
@@ -774,8 +877,8 @@
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">1x Available</span>
+                        <span class="status-pill coming-soon">Coming Soon</span>
+                        <span class="stock-count">1x Expected</span>
                     </div>
 
                     <h3 class="card-title">HP EliteBook 840 G5</h3>
@@ -793,13 +896,14 @@
                     <div class="price-display">
                         <span class="current-price">$349.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
                     </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G5', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G5.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=HP%20EliteBook%20840%20G5%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20the%20HP%20EliteBook%20840%20G5%20when%20it%20arrives.', '_blank')">Notify Me</button>
                 </div>
             </div>
 
-            <!-- HP EliteBook 840 G6 Card -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('hp-840-g6')">
+            <!-- HP EliteBook 840 G6 Card (Coming Soon) -->
+            <div class="glass-card tilt-card" data-price="389.99" data-name="HP EliteBook 840 G6" onclick="openProductDetail('hp-840-g6')">
                 <div>
                     <div class="image-slider" id="slider-hp-840-g6" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-hp-840-g6', -1)" aria-label="Previous image">❮</button>
@@ -815,8 +919,8 @@
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">1x Available</span>
+                        <span class="status-pill coming-soon">Coming Soon</span>
+                        <span class="stock-count">1x Expected</span>
                     </div>
 
                     <h3 class="card-title">HP EliteBook 840 G6</h3>
@@ -834,13 +938,14 @@
                     <div class="price-display">
                         <span class="current-price">$389.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
                     </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('HP EliteBook 840 G6', 'Hi ReByte, I\'m interested in buying the HP EliteBook 840 G6.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=HP%20EliteBook%20840%20G6%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20the%20HP%20EliteBook%20840%20G6%20when%20it%20arrives.', '_blank')">Notify Me</button>
                 </div>
             </div>
 
-            <!-- Dell XPS 13 Card -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('dell-xps')">
+            <!-- Dell XPS 13 Card (Coming Soon) -->
+            <div class="glass-card tilt-card" data-price="339.99" data-name="Dell XPS 13" onclick="openProductDetail('dell-xps')">
                 <div>
                     <div class="image-slider" id="slider-dell" tabindex="0" onclick="event.stopPropagation()">
                         <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-dell', -1)" aria-label="Previous image">❮</button>
@@ -856,8 +961,8 @@
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">1x Available</span>
+                        <span class="status-pill coming-soon">Coming Soon</span>
+                        <span class="stock-count">1x Expected</span>
                     </div>
 
                     <h3 class="card-title">Dell XPS 13 9343</h3>
@@ -875,48 +980,9 @@
                     <div class="price-display">
                         <span class="current-price">$339.99 AUD</span>
                         <span class="shipping-text">+ $19.99 Shipping</span>
+                        <span class="pickup-text">or FREE pickup at 6122</span>
                     </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('Dell XPS 13 9343', 'Hi ReByte, I\'m interested in buying the Dell XPS 13 9343.')">Buy Now</button>
-                </div>
-            </div>
-
-            <!-- ASUS ZenBook Pro Card with real images -->
-            <div class="glass-card tilt-card" onclick="openProductDetail('asus-zenbook')">
-                <div>
-                    <div class="image-slider" id="slider-asus" tabindex="0" onclick="event.stopPropagation()">
-                        <button class="slider-btn prev" onclick="event.stopPropagation(); changeImage('slider-asus', -1)" aria-label="Previous image">❮</button>
-                        <button class="slider-btn next" onclick="event.stopPropagation(); changeImage('slider-asus', 1)" aria-label="Next image">❯</button>
-                        <span class="image-indicator">1 / 5</span>
-                        
-                        <img src="asusz1.jpg" class="active" alt="ASUS ZenBook Pro - Front View" loading="lazy">
-                        <img src="asusz2.jpg" alt="ASUS ZenBook Pro - Angle View" loading="lazy">
-                        <img src="asusz3.jpg" alt="ASUS ZenBook Pro - Keyboard View" loading="lazy">
-                        <img src="asusz4.jpg" alt="ASUS ZenBook Pro - Display View" loading="lazy">
-                        <img src="asusz5.jpg" alt="ASUS ZenBook Pro - Lid View" loading="lazy">
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="status-pill in-stock">In Stock</span>
-                        <span class="stock-count">1x Available</span>
-                    </div>
-
-                    <h3 class="card-title">ASUS ZenBook Pro</h3>
-                    <p class="card-desc">Powerful workstation with dedicated GTX 960M graphics, perfect for creative work.</p>
-                    
-                    <div class="spec-list">
-                        <span class="spec-tag">i7-4720HQ</span>
-                        <span class="spec-tag">16GB RAM</span>
-                        <span class="spec-tag">GTX 960M</span>
-                        <span class="spec-tag">1.1TB SSD+HDD</span>
-                    </div>
-                </div>
-
-                <div class="price-row">
-                    <div class="price-display">
-                        <span class="current-price">$429.99 AUD</span>
-                        <span class="shipping-text">+ $19.99 Shipping</span>
-                    </div>
-                    <button class="btn-fluid" onclick="event.stopPropagation(); openBuyOptions('ASUS ZenBook Pro UX501JW', 'Hi ReByte, I\'m interested in buying the ASUS ZenBook Pro UX501JW.')">Buy Now</button>
+                    <button class="btn-fluid" onclick="event.stopPropagation(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=Dell%20XPS%2013%20Inquiry&body=Hi%20ReByte,%20I%27m%20interested%20in%20the%20Dell%20XPS%2013%20when%20it%20arrives.', '_blank')">Notify Me</button>
                 </div>
             </div>
         </div>
@@ -963,7 +1029,7 @@
                         <span style="font-size:2rem;">📘</span>
                         <span style="text-align:left;">
                             <span style="display:block; font-weight:800; font-size:1.1rem;">Buy on Facebook</span>
-                            <span style="font-size:0.85rem; color:#a1a1aa;">Message us directly on Marketplace</span>
+                            <span style="font-size:0.85rem; color:#a1a1aa;">View this listing on Marketplace</span>
                         </span>
                         <span style="margin-left:auto; color:#00f0ff;">→</span>
                     </button>
@@ -1015,7 +1081,7 @@
             currentProductName = productName;
             currentProductEmailBody = emailBody;
             currentFacebookLink = facebookLink || 'https://www.facebook.com/marketplace';
-            document.getElementById('buyOptionsProductName').textContent = `Choose how you'd like to purchase the ${productName}:`;
+            document.getElementById('buyOptionsProductName').textContent = 'Choose how you\'d like to purchase the ' + productName + ':';
             document.getElementById('buyOptionsModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1031,14 +1097,37 @@
         }
 
         function buyViaEmail() {
-            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=${encodeURIComponent(currentProductName + ' Purchase Inquiry')}&body=${encodeURIComponent(currentProductEmailBody)}`, '_blank');
+            window.open('https://mail.google.com/mail/?view=cm&fs=1&to=rebyteofficial@gmail.com&su=' + encodeURIComponent(currentProductName + ' Purchase Inquiry') + '&body=' + encodeURIComponent(currentProductEmailBody), '_blank');
             closeBuyOptions();
+        }
+
+        // --- SORTING FUNCTION ---
+        function sortProducts(sortType) {
+            const grid = document.getElementById('productsGrid');
+            const cards = Array.from(grid.children);
+            
+            cards.sort(function(a, b) {
+                if (sortType === 'cheapest') {
+                    return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                } else if (sortType === 'expensive') {
+                    return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                } else if (sortType === 'alphabetical') {
+                    return a.dataset.name.localeCompare(b.dataset.name);
+                } else {
+                    // Default order - keep ASUS first, then HP Folio, then others
+                    return 0;
+                }
+            });
+            
+            cards.forEach(function(card) {
+                grid.appendChild(card);
+            });
         }
 
         // --- 3D TILT EFFECT ---
         function initTilt() {
-            document.querySelectorAll('.tilt-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.tilt-card').forEach(function(card) {
+                card.addEventListener('mousemove', function(e) {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
@@ -1047,15 +1136,15 @@
                     const rotateX = (y - centerY) / centerY * -6;
                     const rotateY = (x - centerX) / centerX * 6;
                     
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02, 1.02, 1.02)';
                 });
                 
-                card.addEventListener('mouseleave', () => {
+                card.addEventListener('mouseleave', function() {
                     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
                     card.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 });
                 
-                card.addEventListener('mouseenter', () => {
+                card.addEventListener('mouseenter', function() {
                     card.style.transition = 'transform 0.1s ease';
                 });
             });
@@ -1063,10 +1152,35 @@
 
         // --- PRODUCT DETAIL DATA ---
         const productDetails = {
+            'asus-zenbook': {
+                icon: '🎮',
+                name: 'ASUS ZenBook Pro UX501JW',
+                status: 'In Stock - 1x Available',
+                description: 'The ASUS ZenBook Pro UX501JW combines elegant design with serious performance. Featuring a dedicated NVIDIA GTX 960M graphics card and a vibrant 4K touch display, perfect for content creators and gamers.',
+                specs: [
+                    ['Model', 'ASUS ZenBook Pro UX501JW-FL177H'],
+                    ['Processor', 'Intel Core i7-4720HQ (2.6GHz, up to 3.6GHz, 4 cores)'],
+                    ['RAM', '16GB DDR3L 1600MHz'],
+                    ['Storage', '128GB SSD + 1TB HDD (1.1TB Total)'],
+                    ['Display', '15.6" 4K UHD (3840 x 2160) Touchscreen IPS'],
+                    ['Graphics', 'NVIDIA GeForce GTX 960M 2GB GDDR5'],
+                    ['Operating System', 'Windows 10 Pro'],
+                    ['Battery', 'Up to 6 hours battery life'],
+                    ['Weight', '2.06 kg (4.5 lbs)'],
+                    ['Ports', '3x USB 3.0, HDMI, Mini DisplayPort, SD card, Headphone jack'],
+                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
+                    ['Audio', 'Bang & Olufsen ICEpower audio'],
+                    ['Condition', 'Refurbished - Grade A, minor cosmetic wear'],
+                    ['Included', 'Laptop + Genuine ASUS AC Adapter']
+                ],
+                price: '$429.99 AUD',
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: 'https://www.facebook.com/share/1LykSD1gPR/'
+            },
             'hp-folio-1040-g3': {
                 icon: '💻',
                 name: 'HP EliteBook Folio 1040 G3',
-                status: 'In Stock - 4x Available',
+                status: 'Coming Soon - 4x Expected',
                 description: 'The HP EliteBook Folio 1040 G3 is an ultra-slim business ultrabook designed for professionals who demand portability without compromising on performance. Its premium aluminum chassis and enterprise-grade security features make it ideal for on-the-go productivity.',
                 specs: [
                     ['Model', 'HP EliteBook Folio 1040 G3 (193F3)'],
@@ -1084,14 +1198,14 @@
                     ['Condition', 'Refurbished - Grade A, excellent condition'],
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
-                price: '$259.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/marketplace'
+                price: '$179.99 AUD',
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: ''
             },
             'hp-840-g3': {
                 icon: '💼',
                 name: 'HP EliteBook 840 G3',
-                status: 'In Stock - 1x Available',
+                status: 'Coming Soon - 1x Expected',
                 description: 'The HP EliteBook 840 G3 is a reliable business laptop with a durable design and solid performance. It features a comfortable keyboard, clear display, and enterprise-grade security for professional use.',
                 specs: [
                     ['Model', 'HP EliteBook 840 G3 (193C6)'],
@@ -1110,13 +1224,13 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$309.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/marketplace'
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: ''
             },
             'hp-840-g5': {
                 icon: '💼',
                 name: 'HP EliteBook 840 G5',
-                status: 'In Stock - 1x Available',
+                status: 'Coming Soon - 1x Expected',
                 description: 'The HP EliteBook 840 G5 is a modern business laptop featuring an 8th Gen Intel processor for enhanced performance. With its sleek design, security features, and all-day battery life, it is built for professionals.',
                 specs: [
                     ['Model', 'HP EliteBook 840 G5 (193E4)'],
@@ -1135,13 +1249,13 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$349.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/marketplace'
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: ''
             },
             'hp-840-g6': {
                 icon: '💼',
                 name: 'HP EliteBook 840 G6',
-                status: 'In Stock - 1x Available',
+                status: 'Coming Soon - 1x Expected',
                 description: 'The HP EliteBook 840 G6 is a premium business laptop with 16GB RAM and advanced security features. It offers exceptional performance for multitasking and professional applications.',
                 specs: [
                     ['Model', 'HP EliteBook 840 G6'],
@@ -1160,13 +1274,13 @@
                     ['Included', 'Laptop + Genuine HP AC Adapter']
                 ],
                 price: '$389.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/marketplace'
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: ''
             },
             'dell-xps': {
                 icon: '💻',
                 name: 'Dell XPS 13 9343',
-                status: 'In Stock - 1x Available',
+                status: 'Coming Soon - 1x Expected',
                 description: 'The Dell XPS 13 9343 features a stunning 13.3-inch InfinityEdge display with virtually no bezel, making it one of the most compact 13-inch laptops available. Built with a carbon fiber palm rest and aluminum lid.',
                 specs: [
                     ['Model', 'Dell XPS 13 9343'],
@@ -1184,33 +1298,8 @@
                     ['Included', 'Laptop + Third-party compatible AC Adapter']
                 ],
                 price: '$339.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/marketplace'
-            },
-            'asus-zenbook': {
-                icon: '🎮',
-                name: 'ASUS ZenBook Pro UX501JW',
-                status: 'In Stock - 1x Available',
-                description: 'The ASUS ZenBook Pro UX501JW combines elegant design with serious performance. Featuring a dedicated NVIDIA GTX 960M graphics card and a vibrant 4K touch display, perfect for content creators and gamers.',
-                specs: [
-                    ['Model', 'ASUS ZenBook Pro UX501JW-FL177H'],
-                    ['Processor', 'Intel Core i7-4720HQ (2.6GHz, up to 3.6GHz, 4 cores)'],
-                    ['RAM', '16GB DDR3L 1600MHz'],
-                    ['Storage', '1.1TB Total (256GB SSD + 1TB HDD)'],
-                    ['Display', '15.6" 4K UHD (3840 x 2160) Touchscreen IPS'],
-                    ['Graphics', 'NVIDIA GeForce GTX 960M 2GB GDDR5'],
-                    ['Operating System', 'Windows 10 Home'],
-                    ['Battery', 'Up to 6 hours battery life'],
-                    ['Weight', '2.06 kg (4.5 lbs)'],
-                    ['Ports', '3x USB 3.0, HDMI, Mini DisplayPort, SD card, Headphone jack'],
-                    ['Connectivity', 'Wi-Fi 802.11ac, Bluetooth 4.0'],
-                    ['Audio', 'Bang & Olufsen ICEpower audio'],
-                    ['Condition', 'Refurbished - Grade A, minor cosmetic wear'],
-                    ['Included', 'Laptop + Genuine ASUS AC Adapter']
-                ],
-                price: '$429.99 AUD',
-                shipping: '+ $19.99 Shipping',
-                facebookLink: 'https://www.facebook.com/share/1LykSD1gPR/'
+                shipping: '+ $19.99 Shipping or FREE pickup at 6122',
+                facebookLink: ''
             }
         };
 
@@ -1220,37 +1309,27 @@
             if (!data) return;
 
             let specsHTML = '';
-            data.specs.forEach(spec => {
-                specsHTML += `
-                    <tr>
-                        <td>${spec[0]}</td>
-                        <td>${spec[1]}</td>
-                    </tr>
-                `;
+            data.specs.forEach(function(spec) {
+                specsHTML += '<tr><td>' + spec[0] + '</td><td>' + spec[1] + '</td></tr>';
             });
 
-            document.getElementById('productDetailBody').innerHTML = `
-                <div class="detail-header">
-                    <span class="detail-icon">${data.icon}</span>
-                    <div>
-                        <h2 class="detail-title">${data.name}</h2>
-                        <span class="status-pill in-stock" style="margin-top:0.5rem; font-size:0.7rem;">${data.status}</span>
-                    </div>
-                </div>
-                <p style="color:#a1a1aa; line-height:1.6; margin-bottom:1.5rem; font-size:0.95rem;">${data.description}</p>
-                
-                <table class="specs-table">
-                    <tbody>${specsHTML}</tbody>
-                </table>
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.15); gap:1rem; flex-wrap:wrap;">
-                    <div>
-                        <span style="font-size:1.4rem; font-weight:900; color:#00f0ff;">${data.price}</span>
-                        <span style="display:block; color:#a1a1aa; font-size:0.85rem;">${data.shipping}</span>
-                    </div>
-                    <button class="btn-fluid" onclick="closeProductDetail(); openBuyOptions('${data.name}', 'Hi ReByte, I\'m interested in buying the ${data.name}.', '${data.facebookLink}')" style="font-size:0.9rem; padding:0.8rem 2rem;">Buy Now</button>
-                </div>
-            `;
+            document.getElementById('productDetailBody').innerHTML = 
+                '<div class="detail-header">' +
+                    '<span class="detail-icon">' + data.icon + '</span>' +
+                    '<div>' +
+                        '<h2 class="detail-title">' + data.name + '</h2>' +
+                        '<span class="status-pill ' + (data.status.indexOf('Coming Soon') > -1 ? 'coming-soon' : 'in-stock') + '" style="margin-top:0.5rem; font-size:0.7rem;">' + data.status + '</span>' +
+                    '</div>' +
+                '</div>' +
+                '<p style="color:#a1a1aa; line-height:1.6; margin-bottom:1.5rem; font-size:0.95rem;">' + data.description + '</p>' +
+                '<table class="specs-table"><tbody>' + specsHTML + '</tbody></table>' +
+                '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.15); gap:1rem; flex-wrap:wrap;">' +
+                    '<div>' +
+                        '<span style="font-size:1.4rem; font-weight:900; color:#00f0ff;">' + data.price + '</span>' +
+                        '<span style="display:block; color:#a1a1aa; font-size:0.85rem;">' + data.shipping + '</span>' +
+                    '</div>' +
+                    '<button class="btn-fluid" onclick="closeProductDetail(); openBuyOptions(\'' + data.name + '\', \'Hi ReByte, I\'m interested in buying the ' + data.name + '.\', \'' + data.facebookLink + '\')" style="font-size:0.9rem; padding:0.8rem 2rem;">' + (data.status.indexOf('Coming Soon') > -1 ? 'Notify Me' : 'Buy Now') + '</button>' +
+                '</div>';
 
             document.getElementById('productModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1272,21 +1351,21 @@
             const indicator = slider.querySelector('.image-indicator');
             let currentIndex = 0;
 
-            images.forEach((img, idx) => {
+            images.forEach(function(img, idx) {
                 if (img.classList.contains('active')) currentIndex = idx;
             });
 
             images[currentIndex].classList.remove('active');
             let newIndex = (currentIndex + direction + images.length) % images.length;
             images[newIndex].classList.add('active');
-            if (indicator) indicator.textContent = `${newIndex + 1} / ${images.length}`;
+            if (indicator) indicator.textContent = (newIndex + 1) + ' / ' + images.length;
             
             resetAutoPlay(sliderId);
         }
 
         function startAutoPlay(sliderId) {
             stopAutoPlay(sliderId);
-            sliderAutoPlay[sliderId] = setInterval(() => {
+            sliderAutoPlay[sliderId] = setInterval(function() {
                 changeImage(sliderId, 1);
             }, autoPlayInterval);
         }
@@ -1308,12 +1387,12 @@
             if (!slider) return;
             let touchStartX = 0;
             
-            slider.addEventListener('touchstart', (e) => {
+            slider.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
                 stopAutoPlay(sliderId);
             }, {passive: true});
             
-            slider.addEventListener('touchend', (e) => {
+            slider.addEventListener('touchend', function(e) {
                 const diff = touchStartX - e.changedTouches[0].screenX;
                 if (Math.abs(diff) > 50) {
                     changeImage(sliderId, diff > 0 ? 1 : -1);
@@ -1323,15 +1402,15 @@
         }
 
         // Initialize all sliders
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             const sliders = document.querySelectorAll('.image-slider');
             
-            sliders.forEach(slider => {
+            sliders.forEach(function(slider) {
                 const sliderId = slider.id;
                 
                 addTouchSupport(sliderId);
                 
-                slider.addEventListener('keydown', (e) => {
+                slider.addEventListener('keydown', function(e) {
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
                         e.stopPropagation();
@@ -1345,18 +1424,18 @@
                 
                 startAutoPlay(sliderId);
                 
-                slider.addEventListener('mouseenter', () => stopAutoPlay(sliderId));
-                slider.addEventListener('mouseleave', () => startAutoPlay(sliderId));
+                slider.addEventListener('mouseenter', function() { stopAutoPlay(sliderId); });
+                slider.addEventListener('mouseleave', function() { startAutoPlay(sliderId); });
                 
                 const images = slider.querySelectorAll('img');
                 let loadedCount = 0;
                 
-                images.forEach(img => {
+                images.forEach(function(img) {
                     if (img.complete) {
                         img.classList.add('loaded');
                         loadedCount++;
                     } else {
-                        img.addEventListener('load', () => {
+                        img.addEventListener('load', function() {
                             img.classList.add('loaded');
                             loadedCount++;
                             if (loadedCount === images.length) {
@@ -1375,7 +1454,7 @@
         });
 
         // Close modals on Escape
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 if (document.getElementById('productModal').classList.contains('active')) {
                     closeProductDetail();
@@ -1397,10 +1476,10 @@
         // --- DYNAMIC ISLAND ---
         const island = document.getElementById('dynamic-island');
         let stopScrollTimer = null;
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', function() {
             island.classList.add('scrolling');
             if (stopScrollTimer !== null) clearTimeout(stopScrollTimer);
-            stopScrollTimer = setTimeout(() => { island.classList.remove('scrolling'); }, 150);
+            stopScrollTimer = setTimeout(function() { island.classList.remove('scrolling'); }, 150);
             
             const backBtn = document.getElementById('backToTop');
             if (backBtn) {
@@ -1440,7 +1519,7 @@
         let mouseX = 0, mouseY = 0;
         let animationId;
 
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener('mousemove', function(e) {
             mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
             mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
         });
@@ -1454,7 +1533,7 @@
         }
         animate();
 
-        document.addEventListener('visibilitychange', () => {
+        document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
                 cancelAnimationFrame(animationId);
             } else {
@@ -1462,7 +1541,7 @@
             }
         });
 
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
